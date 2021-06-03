@@ -5,6 +5,7 @@ package com.dss.lms.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -32,7 +33,7 @@ public class BookDAO extends BaseDAO {
 	    List<Book> books = new ArrayList<>();
 		while(rs.next()) {
 			Book b = new Book();
-			b.setBookId(rs.getString("bookId"));
+			b.setBookId(rs.getInt("bookId"));
 			b.setTitle(rs.getString("title"));
 			books.add(b);
 		}
