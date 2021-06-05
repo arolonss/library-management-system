@@ -5,6 +5,7 @@ package com.dss.lms.service;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.dss.lms.model.Author;
 import com.dss.lms.model.Book;
@@ -21,8 +22,8 @@ public interface AdminServiceInterface {
     // book CRUD
 	public void addBook(Book book) throws SQLException;
 	public void updateBook(Book book) throws SQLException;
-	public ArrayList<Book> readAllBooks(Book book);
-	public void deleteBook(Book book);
+	public ArrayList<Book> readAllBooks(Book book) throws ClassNotFoundException, SQLException;
+	public void deleteBook(Book book) throws SQLException;
 	
 	//author CRUD
 	public void addAuthor(Author author) throws SQLException;
@@ -30,12 +31,12 @@ public interface AdminServiceInterface {
 	public ArrayList<Author> readAllAuthors(Author author);
 	public void deleteAuthor(Author author);
 	//genre CRUD
-	public void addGenre(Genre genre);
+	public void addGenre(Genre genre) throws SQLException;
 	public void updateGenre(Genre genre);
 	public ArrayList<Genre> readAllGenres(Genre genre);
 	public void deleteGenre(Genre genre);
 	//publisher CRUD
-	public void addPublisher(Publisher publisher);
+	public void addPublisher(Publisher publisher) throws SQLException;
 	public void updatePublisher(Publisher publisher);
 	public ArrayList<Publisher> readAllPublishers(Publisher publisher);
 	public void deletePublisher(Publisher publisher);

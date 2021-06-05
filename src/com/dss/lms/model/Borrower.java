@@ -1,13 +1,25 @@
 package com.dss.lms.model;
 
+import java.util.List;
+
 public class Borrower {
     
 	private Integer cardNo;
 	private String name;
 	private String address;
 	private String phone;
+	private List<BookLoan> bookloans;
+	
+	
+//	public Borrower(Integer cardNo, String name, String address, String phone, List<BookLoan> bookloans) {
+//		this.cardNo = cardNo;
+//		this.name = name;
+//		this.address = address;
+//		this.phone = phone;
+//		this.setBookloans(bookloans);
+//	}
 	/**
-	 * @return the cardNo
+	 * @return the cardNo PK
 	 */
 	public Integer getCardNo() {
 		return cardNo;
@@ -54,6 +66,19 @@ public class Borrower {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+	/**
+	 * @return the bookloans
+	 */
+	public List<BookLoan> getBookloans() {
+		return bookloans;
+	}
+	/**
+	 * @param bookloans the bookloans to set
+	 */
+	public void setBookloans(List<BookLoan> bookloans) {
+		this.bookloans = bookloans;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

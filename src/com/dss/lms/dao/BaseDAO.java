@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -49,18 +50,22 @@ public abstract class BaseDAO<T> {
 		pstmt.executeUpdate();
 	}
 
-	public List<T> read(String sql, Object[] vals) throws ClassNotFoundException, SQLException {
+	public ArrayList<T> read(String sql, Object[] vals) throws ClassNotFoundException, SQLException {
 		PreparedStatement pstmt = conn.prepareStatement(sql);
-
-		int count = 1;
-		for (Object o: vals) {
-			pstmt.setObject(count, o);
-			count++;
+		System.out.println(sql);
+		
+		if (vals != null) {
+			int count = 1;
+			for (Object o: vals) {
+				pstmt.setObject(count, o);
+				count++;
+			}
 		}
 		ResultSet rs = pstmt.executeQuery();
+		System.out.println(rs);
 		return extractData(rs);
 		
 	}
 	
-	abstract public List<T> extractData(ResultSet rs) throws ClassNotFoundException, SQLException;
+	abstract public ArrayList<T> extractData(ResultSet rs) throws ClassNotFoundException, SQLException;
 }

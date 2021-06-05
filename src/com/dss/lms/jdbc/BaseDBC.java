@@ -17,7 +17,11 @@ import java.util.Scanner;
  */
 public abstract class BaseDBC {
 
-	
+	private static final String driver = "com.mysql.cj.jdbc.Driver";
+	private static final String url = "jdbc:mysql://localhost:3306/library?serverTimezone=UTC";
+	private static final String username = "root";
+	private static final String password = "rootpassword";
+
 	
 	/**
 	 * @param args
@@ -26,9 +30,21 @@ public abstract class BaseDBC {
 	 */
 	public static void main(String[] args) throws SQLException, ClassNotFoundException {
 		
+		
+			// Register the driver
+		Class.forName(driver);
+			// create Connection
+		Connection conn = DriverManager.getConnection(url, username, password);
+			
         // statement
 		// Statement stmt = conn.createStatement();
 		// you can only have one PreparedStatement
+		PreparedStatement pstmt = conn.prepareStatement("select * from tbl_book");
+		ResultSet rs = pstmt.executeQuery();
+		while(rs.next()) {
+			String title = rs.getString("title");
+			System.out.println(title);
+		}
 		
 	}
 
