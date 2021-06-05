@@ -8,6 +8,9 @@ import java.util.Scanner;
 
 import com.dss.lms.menu.AdminMenu;
 import com.dss.lms.menu.BaseMenu;
+import com.dss.lms.presentation.AdminPresentation;
+import com.dss.lms.presentation.BorrowerPresentation;
+import com.dss.lms.presentation.LibrarianPresentation;
 import com.dss.lms.presentation.Presentation;
 import com.dss.lms.service.AdminService;
 import com.dss.lms.service.AdminServiceInterface;
@@ -39,18 +42,18 @@ public class Main {
 	    	case 1:
 	    		
 	    		System.out.println("Welcome Librarian!");
-	    		//BaseMenu menu = new LibrarianMenu();
+	    		presentation = new LibrarianPresentation();
 	    		System.out.println("Enter branch you manage or go back to main menu");
 	    		break;
 	    	case 2:
 	    		
 	    		System.out.println();
-	    		presentation = new Presentation();
+	    		presentation = new AdminPresentation();
 	    		presentation.menu();
 	    		break;
 	    	case 3:
 	    		System.out.println("Welcome Borrower!");
-	    		//BaseMenu menu = new BorrowerMenu();
+	    		presentation = new BorrowerPresentation();
 	    		System.out.println("Enter your LMS card number: ");
 	    		break;
 	    	default:
