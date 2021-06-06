@@ -50,9 +50,8 @@ public abstract class BaseDAO<T> {
 		pstmt.executeUpdate();
 	}
 
-	public ArrayList<T> read(String sql, Object[] vals) throws ClassNotFoundException, SQLException {
+	public List<T> read(String sql, Object[] vals) throws ClassNotFoundException, SQLException {
 		PreparedStatement pstmt = conn.prepareStatement(sql);
-		System.out.println(sql);
 		
 		if (vals != null) {
 			int count = 1;
@@ -62,10 +61,9 @@ public abstract class BaseDAO<T> {
 			}
 		}
 		ResultSet rs = pstmt.executeQuery();
-		System.out.println(rs);
 		return extractData(rs);
 		
 	}
 	
-	abstract public ArrayList<T> extractData(ResultSet rs) throws ClassNotFoundException, SQLException;
+	abstract public List<T> extractData(ResultSet rs) throws ClassNotFoundException, SQLException;
 }

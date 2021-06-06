@@ -13,7 +13,6 @@ public class PublisherDAO extends BaseDAO<Publisher> {
     
 	public PublisherDAO(Connection conn) {
 		super(conn);
-		// TODO Auto-generated constructor stub
 	}
 
 	public void addPublisher(Publisher publisher) throws ClassNotFoundException, SQLException {
@@ -21,21 +20,19 @@ public class PublisherDAO extends BaseDAO<Publisher> {
 	}
 
 	public void updatePublisher(Publisher publisher) throws SQLException, ClassNotFoundException {
-		save("UPDATE tbl_publisher SET title = ? where publisherId = ?", new Object[] { publisher.getName(), publisher.getId() });
+		save("UPDATE tbl_publisher SET publisherName = ? where publisherId = ?", new Object[] { publisher.getName(), publisher.getId() });
 
 	}
 
-	public List<Publisher> readAllPublishers(Publisher publisher) throws ClassNotFoundException, SQLException {
+	public List<Publisher> readAllPublishers() throws ClassNotFoundException, SQLException {
         return read("select * from tbl_publisher", null);
-        
-		//return read("select * from tbl_book", new Object[] {book.getTitle()});
 
 	}
 	
 	
-	public List<Publisher> readPublishersById(Publisher publisher) throws ClassNotFoundException, SQLException {
+	public List<Publisher> readPublisherById(Integer id) throws ClassNotFoundException, SQLException {
 
-		return read("select * from tbl_publisher where publisherId = ", new Object[] {publisher.getId()});
+		return read("select * from tbl_publisher where publisherId = ?", new Object[] { id });
 
 	}
 	
@@ -43,13 +40,11 @@ public class PublisherDAO extends BaseDAO<Publisher> {
 		save("DELETE FROM tbl_publisher where publisherId = ?", new Object[] { publisher.getId() });
 	}
 
-	@Override
+	
 	public List<Publisher> extractData(ResultSet rs) throws ClassNotFoundException, SQLException {
-
-		List<Publisher> publishers = new ArrayList<>();
+        List<Publisher> publishers = new ArrayList<>();
 		while (rs.next()) {
 			Publisher p = new Publisher();
-			
 			
 			p.setId(rs.getInt("publisherId"));
 			p.setName(rs.getString("publisherName"));
@@ -57,7 +52,9 @@ public class PublisherDAO extends BaseDAO<Publisher> {
 			p.setPhone(rs.getString("publisherPhone"));
 			publishers.add(p);
 	    }
+		publishers.forEach(p -> System.out.println(p.getId() + " " + p.getName()));
 		return publishers;
 	}
+
 
 }

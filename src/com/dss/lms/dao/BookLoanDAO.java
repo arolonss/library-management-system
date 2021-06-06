@@ -51,13 +51,14 @@ public class BookLoanDAO extends BaseDAO<BookLoan>{
 		while (rs.next()) {
 			BookLoan bl = new BookLoan();
 			
-			bl.setId(rs.getInt("bookId"));
-			bl.setId(rs.getInt("branchId"));
-			bl.setId(rs.getInt("cardNo"));
-			bl.setDate(rs.getDate("dateOut"));
-			bl.setDate(rs.getDate("dueDate"));
+			bl.setBookId(rs.getInt("bookId"));
+			bl.setLibraryId(rs.getInt("branchId"));
+			bl.setBookId(rs.getInt("cardNo"));
+			bl.setDateOut(rs.getDate("dateOut"));
+			bl.setDueDate(rs.getDate("dueDate"));
 			bookLoans.add(bl);
 	    }
+		
 		return bookLoans;
 	}
 

@@ -55,6 +55,7 @@ public class BookAuthorsDAO extends BaseDAO<BookAuthors>{
 			ba.setId(rs.getInt("authorId"));
 			bookAuthors.add(ba);
 	    }
+		
 		return bookAuthors;
 	}
 	

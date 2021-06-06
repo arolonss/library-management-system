@@ -30,18 +30,17 @@ public class BookDAO extends BaseDAO<Book> {
 	}
 
 	public void updateBook(Book book) throws SQLException, ClassNotFoundException {
-		save("UPDATE tbl_book SET title = ? where bookId = ?", new Object[] { book.getTitle(), book.getId() });
-
+		save("UPDATE tbl_book SET title = ?, pubId = ? where bookId = ?", new Object[] { book.getTitle(), book.getPubId(), book.getId() });
 	}
 
-	public ArrayList<Book> readAllBooks(Book book) throws ClassNotFoundException, SQLException {
+	public List<Book> readAllBooks() throws ClassNotFoundException, SQLException {
         return read("select * from tbl_book", null);
 	}
 	
 	
-	public List<Book> readBookById(Book book) throws ClassNotFoundException, SQLException {
+	public List<Book> readBookById(Integer id) throws ClassNotFoundException, SQLException {
 
-		return read("select * from tbl_book where bookId = ", new Object[] {book.getId()});
+		return read("select * from tbl_book where bookId = ?", new Object[] { id });
 
 	}
 	
@@ -49,9 +48,8 @@ public class BookDAO extends BaseDAO<Book> {
 		save("DELETE FROM tbl_book where bookId = ?", new Object[] { book.getId() });
 	}
 
-	public ArrayList<Book> extractData(ResultSet rs) throws ClassNotFoundException, SQLException {
-        System.out.println(rs);
-		ArrayList<Book> books = new ArrayList<>();
+	public List<Book> extractData(ResultSet rs) throws ClassNotFoundException, SQLException {
+		List<Book> books = new ArrayList<>();
 		while (rs.next()) {
 			Book b = new Book();
 			
@@ -60,7 +58,8 @@ public class BookDAO extends BaseDAO<Book> {
 			b.setPubId(rs.getInt("pubId"));
 			books.add(b);
 	    }
-		return books;
+		books.forEach(b -> System.out.println(b.getTitle()));
+	    return books;
 	}
 
 	

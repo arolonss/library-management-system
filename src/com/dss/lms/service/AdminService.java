@@ -7,7 +7,9 @@ import java.util.List;
 
 import com.dss.lms.dao.AuthorDAO;
 import com.dss.lms.dao.BookDAO;
+import com.dss.lms.dao.BorrowerDAO;
 import com.dss.lms.dao.GenreDAO;
+import com.dss.lms.dao.LibraryDAO;
 import com.dss.lms.dao.PublisherDAO;
 import com.dss.lms.model.Author;
 import com.dss.lms.model.Book;
@@ -16,11 +18,10 @@ import com.dss.lms.model.Genre;
 import com.dss.lms.model.Library;
 import com.dss.lms.model.Publisher;
 
-public class AdminService implements AdminServiceInterface {
+public class AdminService {
 
 	Util util = new Util();
 
-	@Override
 	public void addBook(Book book) throws SQLException {
 		Connection conn = null;
 
@@ -46,19 +47,18 @@ public class AdminService implements AdminServiceInterface {
 		}
 	}
 
-	@Override
-	public void updateBook(Book book) throws SQLException {
+	public void updateBook(Book book) throws SQLException, ClassNotFoundException {
 		// TODO Auto-generated method stub
 		Connection conn = null;
 		try {
 			conn = util.getConnection();
 			BookDAO bookDao = new BookDAO(conn);
-			System.out.println(book);
+			System.out.println(book.getTitle());
 			bookDao.updateBook(book);
 			// after all:
 			conn.commit();
 			System.out.println("Book updated successfully!");
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 			conn.rollback();
 			System.out.println("There was a problem. Book not updated!");
@@ -70,33 +70,52 @@ public class AdminService implements AdminServiceInterface {
 
 	}
 
-	@Override
-	public ArrayList<Book> readAllBooks(Book book) throws ClassNotFoundException, SQLException {
+	public void readAllBooks() throws SQLException, ClassNotFoundException {
 		Connection conn = null;
-		
+		// List<Book> books = null;
 		try {
-			
+
 			conn = util.getConnection();
-			BookDAO bookDao = new BookDAO(conn);;
-			return bookDao.readAllBooks(book);
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			System.out.println("There was a problem. Book not updated!");
-			e.printStackTrace();
+			BookDAO bookDao = new BookDAO(conn);
+			bookDao.readAllBooks();
+			// return books;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			System.out.println("There was a problem. Book not updated!");
 			e.printStackTrace();
 		} finally {
 			if (conn != null) {
-			    conn.close();
+				conn.close();
 			}
 		}
-		return new ArrayList<Book>();
-		
+
 	}
 
-	@Override
+	public Book readBookById(Integer id) throws SQLException, ClassNotFoundException {
+		Connection conn = null;
+		// List<Book> books = null;
+		try {
+
+			conn = util.getConnection();
+			BookDAO bookDao = new BookDAO(conn);
+			List<Book> books = bookDao.readBookById(id);
+			if (books.size() == 0) {
+				return null;
+			}
+			return books.get(0);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.println("There was a problem. Book not updated!");
+			e.printStackTrace();
+		} finally {
+			if (conn != null) {
+				conn.close();
+			}
+		}
+		return null;
+
+	}
+
 	public void deleteBook(Book book) throws SQLException {
 		// TODO Auto-generated method stub
 		Connection conn = null;
@@ -105,27 +124,24 @@ public class AdminService implements AdminServiceInterface {
 			BookDAO bookDao = new BookDAO(conn);
 			bookDao.deleteBook(book);
 			System.out.println("Book deleted");
-            
+
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.out.println("There was a problem. Book not updated!");
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			System.out.println("There was a problem. Book not updated!");
 			e.printStackTrace();
 		} finally {
 			if (conn != null) {
-			    conn.close();
+				conn.close();
 			}
 		}
 
-	
-
 	}
 
-	@Override
 	public void addAuthor(Author author) throws SQLException {
 		Connection conn = null;
 
@@ -152,25 +168,40 @@ public class AdminService implements AdminServiceInterface {
 
 	}
 
-	@Override
 	public void updateAuthor(Author author) {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
-	public ArrayList<Author> readAllAuthors(Author author) {
-		// TODO Auto-generated method stub
-		return null;
+	public void readAllAuthors() throws SQLException, ClassNotFoundException {
+
+		Connection conn = null;
+		// List<Book> books = null;
+		try {
+
+			conn = util.getConnection();
+			AuthorDAO aDao = new AuthorDAO(conn);
+			aDao.readAllAuthors();
+			// return books;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.println("There was a problem. Book not updated!");
+			e.printStackTrace();
+		} finally {
+			if (conn != null) {
+				conn.close();
+			}
+		}
+
 	}
 
-	@Override
+	
+
 	public void deleteAuthor(Author author) {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
 	public void addGenre(Genre genre) throws SQLException {
 		// TODO Auto-generated method stub
 		Connection conn = null;
@@ -197,25 +228,36 @@ public class AdminService implements AdminServiceInterface {
 		}
 	}
 
-	@Override
 	public void updateGenre(Genre genre) {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
-	public ArrayList<Genre> readAllGenres(Genre genre) {
-		// TODO Auto-generated method stub
-		return null;
+	public void readAllGenres() throws ClassNotFoundException, SQLException {
+		Connection conn = null;
+		// List<Book> books = null;
+		try {
+
+			conn = util.getConnection();
+			GenreDAO genreDao = new GenreDAO(conn);
+			genreDao.readAllGenres();
+			// return books;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.println("There was a problem. Contact Admin!");
+			e.printStackTrace();
+		} finally {
+			if (conn != null) {
+				conn.close();
+			}
+		}
 	}
 
-	@Override
 	public void deleteGenre(Genre genre) {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
 	public void addPublisher(Publisher publisher) throws SQLException {
 		// TODO Auto-generated method stub
 		Connection conn = null;
@@ -242,70 +284,219 @@ public class AdminService implements AdminServiceInterface {
 		}
 	}
 
-	@Override
 	public void updatePublisher(Publisher publisher) {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
-	public ArrayList<Publisher> readAllPublishers(Publisher publisher) {
-		// TODO Auto-generated method stub
-		return null;
+	public void readAllPublishers() throws ClassNotFoundException, SQLException {
+		Connection conn = null;
+		// List<Book> books = null;
+		try {
+
+			conn = util.getConnection();
+			PublisherDAO pubDao = new PublisherDAO(conn);
+			pubDao.readAllPublishers();
+			// return books;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.println("There was a problem. pub not updated!");
+			e.printStackTrace();
+		} finally {
+			if (conn != null) {
+				conn.close();
+			}
+		} // TODO Auto-generated method stub
+
 	}
 
-	@Override
 	public void deletePublisher(Publisher publisher) {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
-	public void addLibrary(Library library) {
-		// TODO Auto-generated method stub
+	public void addLibrary(Library library) throws SQLException {
+		Connection conn = null;
+
+		try {
+			System.out.println(library);
+			// System.out.println("Add a book:");
+			conn = util.getConnection();
+			LibraryDAO libDao = new LibraryDAO(conn);
+			libDao.addLibrary(library);
+
+			// after all:
+			System.out.println(library);
+			conn.commit();
+			System.out.println("Library added successfully!");
+		} catch (Exception e) {
+			e.printStackTrace();
+			conn.rollback();
+			System.out.println("There was a problem. Library not added to database!");
+		} finally {
+			if (conn != null) {
+				conn.close();
+			}
+		}
 
 	}
 
-	@Override
 	public void updateLibrary(Library library) {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
-	public ArrayList<Library> readAllLibraries(Library library) {
-		// TODO Auto-generated method stub
-		return null;
+	public void readAllLibraries() throws ClassNotFoundException, SQLException {
+		Connection conn = null;
+		// List<Book> books = null;
+		try {
+
+			conn = util.getConnection();
+			LibraryDAO libDao = new LibraryDAO(conn);
+			libDao.readAllLibraries();
+			// return books;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.println("There was a problem. Book not updated!");
+			e.printStackTrace();
+		} finally {
+			if (conn != null) {
+				conn.close();
+			}
+		} // TODO Auto-generated method stub
+		
 	}
 
-	@Override
-	public void deleteBook(Library library) {
+	public void deleteLibrary(Library library) {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
-	public void addBorrower(Borrower borrower) {
-		// TODO Auto-generated method stub
+	public void addBorrower(Borrower borrower) throws SQLException {
+		Connection conn = null;
+
+		try {
+			System.out.println(borrower);
+			// System.out.println("Add a book:");
+			conn = util.getConnection();
+			BorrowerDAO borrowerDao = new BorrowerDAO(conn);
+			borrowerDao.addBorrower(borrower);
+
+			// after all:
+			System.out.println(borrower);
+			conn.commit();
+			System.out.println("Borrower added successfully!");
+		    
+		} catch (Exception e) {
+			e.printStackTrace();
+			conn.rollback();
+			System.out.println("There was a problem. Borrower not added to database!");
+		} finally {
+			if (conn != null) {
+				conn.close();
+			}
+		}
 
 	}
 
-	@Override
 	public void updateBorrower(Borrower borrower) {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
-	public ArrayList<Borrower> readAllBorrowers(Borrower borrower) {
-		// TODO Auto-generated method stub
-		return null;
+	public void readAllBorrowers() throws ClassNotFoundException, SQLException {
+		Connection conn = null;
+		// List<Book> books = null;
+		try {
+
+			conn = util.getConnection();
+			BorrowerDAO borrowerDao = new BorrowerDAO(conn);
+			;
+			borrowerDao.readAllBorrowers();
+			// return books;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.println("There was a problem. borrower not updated!");
+			e.printStackTrace();
+		} finally {
+			if (conn != null) {
+				conn.close();
+			}
+		}
 	}
 
-	@Override
 	public void deleteBorrower(Borrower borrower) {
 		// TODO Auto-generated method stub
 
+	}
+
+	public Borrower readBorrowerById(Integer id) throws ClassNotFoundException, SQLException {
+		Connection conn = null;
+		try {
+            conn = util.getConnection();
+			BorrowerDAO bDao = new BorrowerDAO(conn);
+			List<Borrower> borrowers = bDao.readBorrowersById(id);
+			if (borrowers.size() == 0) {
+				return null;
+			}
+			return borrowers.get(0);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.println("There was a problem in adminService!");
+			e.printStackTrace();
+		} finally {
+			if (conn != null) {
+				conn.close();
+			}
+		}
+		return null;
+	}
+
+	public Author readAuthorById(Integer id) throws ClassNotFoundException, SQLException {
+		// TODO Auto-generated method stub
+		Connection conn = null;
+		try {
+            conn = util.getConnection();
+			AuthorDAO aDao = new AuthorDAO(conn);
+			List<Author> authors = aDao.readAuthorById(id);
+			if (authors.size() == 0) {
+				return null;
+			}
+			return authors.get(0);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.println("There was a problem in adminService!");
+			e.printStackTrace();
+		} finally {
+			if (conn != null) {
+				conn.close();
+			}
+		}
+		return null;
+	}
+
+	public Publisher readPublisherById(Integer id) throws ClassNotFoundException, SQLException {
+		// TODO Auto-generated method stub
+		Connection conn = null;
+		try {
+            conn = util.getConnection();
+			PublisherDAO pDao = new PublisherDAO(conn);
+			List<Publisher> publishers = pDao.readPublisherById(id);
+			if (publishers.size() == 0) {
+				return null;
+			}
+			return publishers.get(0);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.println("There was a problem in adminService!");
+			e.printStackTrace();
+		} finally {
+			if (conn != null) {
+				conn.close();
+			}
+		}
+		return null;
+		
 	}
 
 }

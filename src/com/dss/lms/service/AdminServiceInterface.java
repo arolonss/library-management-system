@@ -22,7 +22,7 @@ public interface AdminServiceInterface {
     // book CRUD
 	public void addBook(Book book) throws SQLException;
 	public void updateBook(Book book) throws SQLException;
-	public ArrayList<Book> readAllBooks(Book book) throws ClassNotFoundException, SQLException;
+	public void readAllBooks() throws ClassNotFoundException, SQLException;
 	public void deleteBook(Book book) throws SQLException;
 	
 	//author CRUD

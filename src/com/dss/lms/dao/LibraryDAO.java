@@ -25,16 +25,16 @@ public class LibraryDAO extends BaseDAO<Library> {
 
 	}
 
-	public List<Library> readAllLibraries(Library library) throws ClassNotFoundException, SQLException {
+	public List<Library> readAllLibraries() throws ClassNotFoundException, SQLException {
         return read("select * from tbl_library_branch", null);
         
 
 	}
 	
 	
-	public List<Library> readLibraryById(Library library) throws ClassNotFoundException, SQLException {
+	public List<Library> readLibraryById(Integer id) throws ClassNotFoundException, SQLException {
 
-		return read("select * from tbl_library_branch where branchId = ", new Object[] {library.getId()});
+		return read("select * from tbl_library_branch where branchId = ", new Object[] {id});
 
 	}
 	
@@ -54,6 +54,7 @@ public class LibraryDAO extends BaseDAO<Library> {
 			l.setAddress(rs.getString("branchAddress"));
 			libraries.add(l);
 	    }
+		libraries.forEach(l -> System.out.println(l.getName()));
 		return libraries;
 	}
 	
