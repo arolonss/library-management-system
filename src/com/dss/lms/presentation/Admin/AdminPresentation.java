@@ -99,7 +99,7 @@ public class AdminPresentation extends Presentation {
 		
 	}
 
-	private void libraryOptions() {
+	private void libraryOptions() throws ClassNotFoundException, SQLException {
 		Scanner sc = new Scanner(System.in);
 		AdminLibrary adminLib = new AdminLibrary(admin);
 		System.out.println("1) Add a new library");
@@ -107,32 +107,33 @@ public class AdminPresentation extends Presentation {
 		System.out.println("3) Edit library");
 		System.out.println("4) Delete a library");
 		Integer opt = sc.nextInt();
-//        switch (opt)
-//
-//		{
-//		case 1:
-//			adminAuthor.add();
-//			break;
-//		case 2:
-//            adminAuthor.readAll();
-//			break;
-//		case 3:
-//			adminAuthor.readAll();
-//			System.out.println("choose book to Update");
-//			Scanner id = new Scanner(System.in);
-//            Integer bookid = id.nextInt();
-//			adminBook.update(bookid);
-//			break;
-//        case 4:
-//			System.out.println("delete a book");
-//			adminBook.readAll();
-//			System.out.println("Select a book to delete");
-//			break;
-////			    System.out.println("show list of publishers");
-//		default:
-//			System.out.println("invalid input");
-//			authorOptions();
-//		}
+        switch (opt)
+
+		{
+		case 1:
+			adminLib.add();
+			libraryOptions();
+			break;
+		case 2:
+            adminLib.readAll();
+			break;
+		case 3:
+			adminLib.readAll();
+			System.out.println("choose library to Update");
+			Scanner id = new Scanner(System.in);
+            Integer libId = id.nextInt();
+			adminLib.update(libId);
+			break;
+        case 4:
+			System.out.println("delete a library");
+			adminLib.readAll();
+			System.out.println("Select a library to delete");
+			break;
+//			    System.out.println("show list of publishers");
+		default:
+			System.out.println("invalid input");
+			this.libraryOptions();
+		}
 		
 	}
 

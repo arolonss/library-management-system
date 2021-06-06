@@ -32,7 +32,7 @@ public class BorrowerDAO extends BaseDAO<Borrower> {
 	}
 	
 	
-	public List<Borrower> readBorrowersById(Integer cardNo) throws ClassNotFoundException, SQLException {
+	public List<Borrower> readBorrowerById(Integer cardNo) throws ClassNotFoundException, SQLException {
 
 		return read("select * from tbl_borrower where cardNo = ", new Object[] { cardNo });
 
@@ -58,6 +58,9 @@ public class BorrowerDAO extends BaseDAO<Borrower> {
 		borrowers.forEach(b -> System.out.println(b.getName()));
 		return borrowers;
 	}
+
+
+//	
 	
 	
 

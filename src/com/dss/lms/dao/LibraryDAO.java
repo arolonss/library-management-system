@@ -13,7 +13,6 @@ public class LibraryDAO extends BaseDAO<Library> {
 
 	public LibraryDAO(Connection conn) {
 		super(conn);
-		// TODO Auto-generated constructor stub
 	}
 
 	public void addLibrary(Library library) throws ClassNotFoundException, SQLException {
@@ -21,7 +20,7 @@ public class LibraryDAO extends BaseDAO<Library> {
 	}
 
 	public void updateLibrary(Library library) throws SQLException, ClassNotFoundException {
-		save("UPDATE tbl_library_branch SET BranchNme = ? where libraryId = ?", new Object[] { library.getName(), library.getId() });
+		save("UPDATE tbl_library_branch SET branchName = ? where libraryId = ?", new Object[] { library.getName(), library.getId() });
 
 	}
 

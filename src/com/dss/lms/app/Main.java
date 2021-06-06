@@ -4,16 +4,19 @@
 package com.dss.lms.app;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Scanner;
 
 import com.dss.lms.menu.AdminMenu;
 import com.dss.lms.menu.BaseMenu;
+import com.dss.lms.model.Borrower;
 import com.dss.lms.presentation.BorrowerPresentation;
 import com.dss.lms.presentation.LibrarianPresentation;
 import com.dss.lms.presentation.Presentation;
 import com.dss.lms.presentation.Admin.AdminPresentation;
 import com.dss.lms.service.AdminService;
 import com.dss.lms.service.AdminServiceInterface;
+import com.dss.lms.service.BorrowerService;
 
 /**
  * @author amanda
@@ -53,8 +56,11 @@ public class Main {
 	    		break;
 	    	case 3:
 	    		System.out.println("Welcome Borrower!");
-	    		presentation = new BorrowerPresentation();
-	    		System.out.println("Enter your LMS card number: ");
+	    		getBorrowerCardNo();
+	    		
+	    		
+	    		
+	    		
 	    		break;
 	    	default:
 	    	
@@ -64,5 +70,20 @@ public class Main {
 	    }
 	    
 		//System.out.println("Welcome to the Library Management System!");
+	}
+
+	private static void getBorrowerCardNo() throws ClassNotFoundException, SQLException {
+        BorrowerService bs = new BorrowerService();
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter your LMS card number: ");
+		Integer cardNo = sc.nextInt();
+		
+		if(cardNo != 1) {
+			System.out.println("invalid card number. Try again later.");
+			main(null);
+		} else {
+		Presentation presentation = new BorrowerPresentation();
+		presentation.menu();
+		}
 	}
 }

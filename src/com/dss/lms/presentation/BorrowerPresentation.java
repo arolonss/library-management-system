@@ -9,7 +9,7 @@ public class BorrowerPresentation extends Presentation {
 	BorrowerService borrower = new BorrowerService();
 	@Override
 	public void menu() throws SQLException, ClassNotFoundException {
-		// TODO Auto-generated method stub
+		System.out.println("I am in borrower pres");
 		
 	}
 

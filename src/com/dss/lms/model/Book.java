@@ -9,6 +9,12 @@ public class Book {
     private Integer pubId;
     private List<BookLoan> bookloans;
     
+//	public Book(Integer id, String title, Integer pubId) {
+//		this.id = id;
+//		this.title = title;
+//		this.pubId = pubId;
+//	}
+
 	/**
 	 * @return the id
 	 */

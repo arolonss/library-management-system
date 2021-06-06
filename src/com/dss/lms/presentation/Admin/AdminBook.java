@@ -33,17 +33,17 @@ public class AdminBook implements AdminCrud<Book> {
 			booktitle = sc.nextLine();
 			break;
 		}
-		
+
 		System.out.println("Add publisher by number here: ");
 		admin.readAllPublishers();
 		Scanner id = new Scanner(System.in);
-		Integer pubId; 
-		
+		Integer pubId;
+
 		pubId = id.nextInt();
-			
+
 		b.setTitle(booktitle);
 		b.setPubId(pubId);
-		
+
 		admin.addBook(b);
 		sc.close();
 		id.close();
@@ -54,7 +54,7 @@ public class AdminBook implements AdminCrud<Book> {
 	public void update(Object obj) throws SQLException, ClassNotFoundException {
 		// TODO Auto-generated method stub
 		Scanner sc = new Scanner(System.in);
-        Book b = new Book();
+		Book b = new Book();
 		// Book b = admin.readBookById(book);
 		System.out.println("Update book:");
 		String booktitle;
@@ -65,33 +65,32 @@ public class AdminBook implements AdminCrud<Book> {
 			booktitle = sc.nextLine();
 			break;
 		}
-		
+
 		System.out.println("Edit publisher by number here: ");
 		admin.readAllPublishers();
 		Scanner id = new Scanner(System.in);
 		Integer pubId;
 		pubId = id.nextInt();
-		
+
 		b.setTitle(booktitle);
 		b.setPubId(pubId);
-		
+
 		admin.updateBook(b);
 		sc.close();
-        id.close();
+		id.close();
 	}
 
 	public void readById(Integer id) throws ClassNotFoundException, SQLException {
-		// TODO Auto-generated method stub
-		
+
 		System.out.println("in AdminBook.readById");
-		admin.readBookById(id); // .forEach(b -> System.out.println(b.getName()));
+		admin.readBookById(id);
 
 	}
 
 	@Override
 	public void readAll() throws ClassNotFoundException, SQLException {
-		admin.readAllBooks(); 
-    }
+		admin.readAllBooks();
+	}
 
 	@Override
 	public void delete(Object obj) throws SQLException {

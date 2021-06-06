@@ -17,7 +17,6 @@ public class AdminLibrary implements AdminCrud<Library> {
 
 	@Override
 	public void add() throws SQLException {
-		// TODO Auto-generated method stub
 		Scanner sc = new Scanner(System.in);
 		Library l = new Library();
 		System.out.println("Add a new library:");
@@ -39,13 +38,28 @@ public class AdminLibrary implements AdminCrud<Library> {
 
 	@Override
 	public void update(Object obj) throws SQLException {
-		// TODO Auto-generated method stub
+		Scanner sc = new Scanner(System.in);
+		Library l = new Library();
+		System.out.println("Edit library:");
+		String newLib;
+		String newLibAddress;
+		sc.useDelimiter("\\t");
+		while (true) {
+			newLib = sc.nextLine();
+			System.out.println("Library Address:");
+			newLibAddress = sc.nextLine();
+			break;
+		}
+		l.setName(newLib);
+		l.setAddress(newLibAddress);
+		admin.updateLibrary(l);
+		sc.close();
 		
 	}
 
 	@Override
 	public void readAll() throws ClassNotFoundException, SQLException {
-		// TODO Auto-generated method stub
+		admin.readAllLibraries();
 		
 	}
 
@@ -57,7 +71,8 @@ public class AdminLibrary implements AdminCrud<Library> {
 
 	@Override
 	public void readById(Integer id) throws ClassNotFoundException, SQLException {
-		// TODO Auto-generated method stub
+		System.out.println("in AdminLibrary.readById");
+		admin.readBookById(id); 
 		
 	}
 

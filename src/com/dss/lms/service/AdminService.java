@@ -348,22 +348,21 @@ public class AdminService {
 
 	public void readAllLibraries() throws ClassNotFoundException, SQLException {
 		Connection conn = null;
-		// List<Book> books = null;
+		
 		try {
 
 			conn = util.getConnection();
 			LibraryDAO libDao = new LibraryDAO(conn);
 			libDao.readAllLibraries();
-			// return books;
+			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			System.out.println("There was a problem. Book not updated!");
+			System.out.println("There was a problem. Line  359 in admin servce!");
 			e.printStackTrace();
 		} finally {
 			if (conn != null) {
 				conn.close();
 			}
-		} // TODO Auto-generated method stub
+		} 
 		
 	}
 
