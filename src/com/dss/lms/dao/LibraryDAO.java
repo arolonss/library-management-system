@@ -20,7 +20,7 @@ public class LibraryDAO extends BaseDAO<Library> {
 	}
 
 	public void updateLibrary(Library library) throws SQLException, ClassNotFoundException {
-		save("UPDATE tbl_library_branch SET branchName = ? where libraryId = ?", new Object[] { library.getName(), library.getId() });
+		save("UPDATE tbl_library_branch SET branchName = ?, branchAddress = ? where branchId = ?", new Object[] { library.getName(), library.getAddress(), library.getId() });
 
 	}
 
@@ -32,12 +32,12 @@ public class LibraryDAO extends BaseDAO<Library> {
 
 	public List<Library> readLibraryById(Integer id) throws ClassNotFoundException, SQLException {
 
-		return read("select * from tbl_library_branch where branchId = ", new Object[] {id});
+		return read("select * from tbl_library_branch where branchId = ?", new Object[] {id});
 
 	}
 	
-	public void deleteLibrary(Library library) throws SQLException, ClassNotFoundException {
-		save("DELETE FROM tbl_library_branch where branchId = ?", new Object[] { library.getId() });
+	public void deleteLibrary(Integer id) throws SQLException, ClassNotFoundException {
+		save("DELETE FROM tbl_library_branch where branchId = ?", new Object[] { id });
 	}
 
 	@Override
@@ -52,7 +52,7 @@ public class LibraryDAO extends BaseDAO<Library> {
 			l.setAddress(rs.getString("branchAddress"));
 			libraries.add(l);
 	    }
-		libraries.forEach(l -> System.out.println(l.getName()));
+		libraries.forEach(l -> System.out.println(l.getId() + " " + l.getName()));
 		return libraries;
 	}
 	

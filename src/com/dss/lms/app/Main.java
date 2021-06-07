@@ -56,6 +56,7 @@ public class Main {
 	    	default:
 	    	
 	    		System.out.println("Invalid selection. Try Again!");
+	    		main(null);
 	    		break;
 	    	
 	    }

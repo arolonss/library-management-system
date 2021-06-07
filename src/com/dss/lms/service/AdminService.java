@@ -17,6 +17,7 @@ import com.dss.lms.model.Borrower;
 import com.dss.lms.model.Genre;
 import com.dss.lms.model.Library;
 import com.dss.lms.model.Publisher;
+import com.dss.lms.presentation.Admin.AdminPresentation;
 
 public class AdminService {
 
@@ -52,7 +53,7 @@ public class AdminService {
 			conn = util.getConnection();
 			BookDAO bookDao = new BookDAO(conn);
 			bookDao.updateBook(book);
-			// after all:
+		
 			conn.commit();
 			System.out.println("Book updated successfully!");
 		} catch (SQLException e) {
@@ -449,20 +450,14 @@ public class AdminService {
 		Connection conn = null;
 
 		try {
-			System.out.println(library);
-			// System.out.println("Add a book:");
 			conn = util.getConnection();
 			LibraryDAO libDao = new LibraryDAO(conn);
 			libDao.addLibrary(library);
-
-			// after all:
-			System.out.println(library);
 			conn.commit();
 			System.out.println("Library added successfully!");
 		} catch (Exception e) {
-			e.printStackTrace();
 			conn.rollback();
-			System.out.println("There was a problem. Library not added to database!");
+			System.out.println("There was a problem completing your request!");
 		} finally {
 			if (conn != null) {
 				conn.close();
@@ -471,8 +466,29 @@ public class AdminService {
 
 	}
 
-	public void updateLibrary(Library library) {
-		// TODO Auto-generated method stub
+	public void updateLibrary(Library library) throws SQLException {
+		Connection conn = null;
+		try {
+			conn = util.getConnection();
+			LibraryDAO libDao = new LibraryDAO(conn);
+			System.out.println(library.getName());
+			System.out.println(library.getAddress());
+			System.out.println(library.getId());
+			libDao.updateLibrary(library);
+		
+			conn.commit();
+			System.out.println("updated successfully!");
+		} catch (SQLException e) {
+			conn.rollback();
+			System.out.println("There was a problem completing your request!");
+		} catch (ClassNotFoundException e) {
+			System.out.println("There was a problem completing your request!");
+			
+		} finally {
+			if (conn != null) {
+				conn.close();
+			}
+		}
 
 	}
 
@@ -487,7 +503,7 @@ public class AdminService {
 			
 		} catch (SQLException e) {
 			conn.rollback();
-			System.out.println("There was a problem. Line  359 in admin servce!");
+			System.out.println("There was a problem. Line  490 in admin servce!");
 			e.printStackTrace();
 		} finally {
 			if (conn != null) {
@@ -497,8 +513,27 @@ public class AdminService {
 		
 	}
 
-	public void deleteLibrary(Library library) {
-		// TODO Auto-generated method stub
+	public void deleteLibrary(Integer id) throws SQLException {
+		Connection conn = null;
+		try {
+			conn = util.getConnection();
+			LibraryDAO libDao = new LibraryDAO(conn);
+			libDao.deleteLibrary(id);
+			
+            conn.commit();
+            System.out.println("Library deleted");
+		} catch (ClassNotFoundException e) {
+			System.out.println("There was a problem completing your request!");
+			conn.rollback();
+
+		} catch (SQLException e) {
+			System.out.println("There was a problem completing your request!");
+			conn.rollback();
+		} finally {
+			if (conn != null) {
+				conn.close();
+			}
+		}
 
 	}
 
@@ -556,28 +591,24 @@ public class AdminService {
 		}
 	}
 
-	public void deleteBorrower(Borrower borrower) {
-//		Connection conn = null;
-//		try {
-//			conn = util.getConnection();
-//			BookDAO bookDao = new BookDAO(conn);
-//			bookDao.deleteBook(book);
-//			System.out.println("Book deleted");
-//            conn.commit();
-//		} catch (ClassNotFoundException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//			System.out.println("There was a problem. Book not updated!");
-//
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			System.out.println("There was a problem. Book not updated!");
-//			e.printStackTrace();
-//		} finally {
-//			if (conn != null) {
-//				conn.close();
-//			}
-//		}
+	public void deleteBorrower(Integer id) throws SQLException {
+		Connection conn = null;
+		try {
+			conn = util.getConnection();
+			BorrowerDAO bDao = new BorrowerDAO(conn);
+			bDao.deleteBorrower(id);
+			
+            conn.commit();
+            System.out.println("Borrower deleted");
+		} catch (ClassNotFoundException e) {
+			System.out.println("There was a problem complting your request!");
+		} catch (SQLException e) {
+			System.out.println("There was a problem complting your request!");
+		} finally {
+			if (conn != null) {
+				conn.close();
+			}
+		}
 
 	}
 

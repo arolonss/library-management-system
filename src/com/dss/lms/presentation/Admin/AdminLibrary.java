@@ -32,12 +32,11 @@ public class AdminLibrary implements AdminCrud<Library> {
 		l.setName(newLib);
 		l.setAddress(newLibAddress);
 		admin.addLibrary(l);
-		sc.close();
 		
 	}
 
 	@Override
-	public void update(Object obj) throws SQLException {
+	public void update(Integer id) throws SQLException {
 		Scanner sc = new Scanner(System.in);
 		Library l = new Library();
 		System.out.println("Edit library:");
@@ -50,28 +49,28 @@ public class AdminLibrary implements AdminCrud<Library> {
 			newLibAddress = sc.nextLine();
 			break;
 		}
+		l.setId(id);
 		l.setName(newLib);
 		l.setAddress(newLibAddress);
 		admin.updateLibrary(l);
-		sc.close();
+		
 		
 	}
 
 	@Override
 	public void readAll() throws ClassNotFoundException, SQLException {
 		admin.readAllLibraries();
-		
+	    	
 	}
 
 	@Override
-	public void delete(Object obj) throws SQLException {
-		// TODO Auto-generated method stub
-		
+	public void delete(Integer id) throws SQLException {
+		admin.deleteLibrary(id);
+
 	}
 
 	@Override
 	public void readById(Integer id) throws ClassNotFoundException, SQLException {
-		System.out.println("in AdminLibrary.readById");
 		admin.readBookById(id); 
 		
 	}

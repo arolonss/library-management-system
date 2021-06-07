@@ -3,6 +3,7 @@ package com.dss.lms.presentation.Admin;
 import java.sql.SQLException;
 import java.util.Scanner;
 
+import com.dss.lms.app.Main;
 import com.dss.lms.model.Author;
 import com.dss.lms.model.Book;
 import com.dss.lms.model.Genre;
@@ -17,9 +18,9 @@ public class AdminPresentation extends Presentation {
 
 	@Override
 	public void menu() throws SQLException, ClassNotFoundException {
-		// TODO Auto-generated method stub
+	
 		Scanner sc = new Scanner(System.in);
-		// TODO Auto-generated method stub
+		
 		System.out.println("Welcome Admin!");
 		System.out.println("What are you working on today?");
 		System.out.println("1) Books");
@@ -29,6 +30,7 @@ public class AdminPresentation extends Presentation {
 		System.out.println("5) Libraries");
 		System.out.println("6) Borrowers");
 		System.out.println("7) Over-ride due date for a book loan");
+		System.out.println("8) Quit to previous");
 		int opt = sc.nextInt();
 		System.out.println(opt);
 
@@ -56,6 +58,9 @@ public class AdminPresentation extends Presentation {
 		case 7:
 			overRideDueDate();
 			break;
+		case 8:
+			Main.main(null);
+			break;
 		default:
 			System.out.println("invalid input");
 		}
@@ -69,6 +74,7 @@ public class AdminPresentation extends Presentation {
 		System.out.println("2) View borrowers");
 		System.out.println("3) Edit a borrower");
 		System.out.println("4) Delete a borrower");
+		System.out.println("5) Quit to previous");
 		Integer opt = sc.nextInt();
 		switch (opt)
 
@@ -91,7 +97,9 @@ public class AdminPresentation extends Presentation {
 			adminBorrower.readAll();
 			System.out.println("Select a borrower to delete");
 			break;
-//			    
+		case 5:
+			menu();
+			break;
 		default:
 			System.out.println("invalid input");
 			borrowerOptions();
@@ -106,6 +114,7 @@ public class AdminPresentation extends Presentation {
 		System.out.println("2) View libraries");
 		System.out.println("3) Edit library");
 		System.out.println("4) Delete a library");
+		System.out.println("5) Quit to previous");
 		Integer opt = sc.nextInt();
 		switch (opt)
 
@@ -128,11 +137,17 @@ public class AdminPresentation extends Presentation {
 			System.out.println("delete a library");
 			adminLib.readAll();
 			System.out.println("Select a library to delete");
+			Scanner input = new Scanner(System.in);
+			Integer ltd = input.nextInt();
+
+			adminLib.delete(ltd);
 			break;
-//			    System.out.println("show list of publishers");
+		case 5:
+			menu();
+			break;
 		default:
 			System.out.println("invalid input");
-			this.libraryOptions();
+			libraryOptions();
 		}
 
 	}
@@ -144,6 +159,7 @@ public class AdminPresentation extends Presentation {
 		System.out.println("2) View publishers");
 		System.out.println("3) Edit a publisher");
 		System.out.println("4) Delete a publisher");
+		System.out.println("5) Quit to previous");
 		Integer opt = sc.nextInt();
 		switch (opt)
 
@@ -171,7 +187,9 @@ public class AdminPresentation extends Presentation {
 
 			adminPub.delete(ptd);
 			break;
-//			    System.out.println("show list of publishers");
+		case 5:
+			menu();
+			break;
 		default:
 			System.out.println("invalid input");
 			publisherOptions();
@@ -186,6 +204,7 @@ public class AdminPresentation extends Presentation {
 		System.out.println("2) View genres");
 		System.out.println("3) Edit a genre");
 		System.out.println("4) Delete a genre");
+		System.out.println("5) Quit to previous");
 		Integer opt = sc.nextInt();
 		switch (opt)
 
@@ -212,7 +231,9 @@ public class AdminPresentation extends Presentation {
 
 			adminGenre.delete(genreid);
 			break;
-//			    
+		case 5:
+			menu();
+			break;
 		default:
 			System.out.println("invalid input");
 			genreOptions();
@@ -227,6 +248,7 @@ public class AdminPresentation extends Presentation {
 		System.out.println("2) View authors");
 		System.out.println("3) Edit an author");
 		System.out.println("4) Delete an author");
+		System.out.println("5) Quit to previous");
 		Integer opt = sc.nextInt();
 		switch (opt)
 
@@ -254,7 +276,9 @@ public class AdminPresentation extends Presentation {
 
 			adminAuthor.delete(aToDelete);
 			break;
-//			    System.out.println("show list of publishers");
+		case 5:
+			menu();
+			break;
 		default:
 			System.out.println("invalid input");
 			authorOptions();
@@ -269,6 +293,7 @@ public class AdminPresentation extends Presentation {
 		System.out.println("2) View books");
 		System.out.println("3) Edit a book");
 		System.out.println("4) Delete a book");
+		System.out.println("5) Quit to previous");
 
 		int opt = sc.nextInt();
 		System.out.println(opt);
@@ -308,9 +333,12 @@ public class AdminPresentation extends Presentation {
 			adminBook.delete(bookToDelete);
 			
 			break;
-
+		case 5:
+			menu();
+			break;
 		default:
 			System.out.println("invalid input");
+			bookOptions();
 		}
 	}
 
