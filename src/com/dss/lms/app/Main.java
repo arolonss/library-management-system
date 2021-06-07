@@ -7,16 +7,11 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
 
-import com.dss.lms.dao.BorrowerDAO;
-import com.dss.lms.menu.AdminMenu;
-import com.dss.lms.menu.BaseMenu;
-import com.dss.lms.model.Borrower;
 import com.dss.lms.presentation.BorrowerPresentation;
 import com.dss.lms.presentation.LibrarianPresentation;
 import com.dss.lms.presentation.Presentation;
 import com.dss.lms.presentation.Admin.AdminPresentation;
-import com.dss.lms.service.AdminService;
-import com.dss.lms.service.AdminServiceInterface;
+
 import com.dss.lms.service.BorrowerService;
 
 /**

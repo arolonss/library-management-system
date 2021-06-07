@@ -4,16 +4,18 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 import com.dss.lms.model.Author;
+import com.dss.lms.model.Book;
 import com.dss.lms.service.AdminService;
 
 public class AdminAuthor implements AdminCrud<Author> {
-    AdminService admin;
+	AdminService admin;
+
 	public AdminAuthor(AdminService admin) {
 		// TODO Auto-generated constructor stub
 		super();
 		this.admin = admin;
 	}
-	
+
 	public void add() throws SQLException {
 		Scanner sc = new Scanner(System.in);
 		Author a = new Author();
@@ -31,32 +33,44 @@ public class AdminAuthor implements AdminCrud<Author> {
 	}
 
 	@Override
-	public void update(Object obj) throws SQLException {
-		System.out.println("in AdminAuthor update");
+	public void update(Integer id) throws SQLException, ClassNotFoundException {
+		Scanner sc = new Scanner(System.in);
+		Author a = new Author();
+        
+		System.out.println("Update" + " " + admin.readAuthorById(id).getName());
+		String authorName;
+		sc.useDelimiter("\\t");
+
+		while (true) {
+			System.out.println("Edit here: ");
+			authorName = sc.nextLine();
+			break;
+		}
+
+		a.setId(id);
+		a.setName(authorName);
+
+		admin.updateAuthor(a);
 		
+
 	}
 
 	@Override
 	public void readAll() throws ClassNotFoundException, SQLException {
 		admin.readAllAuthors();
-		
+
 	}
 
 	@Override
-	public void delete(Object obj) throws SQLException {
-		// TODO Auto-generated method stub
-		
+	public void delete(Integer id) throws SQLException {
+		admin.deleteAuthor(id);
+
 	}
 
 	@Override
 	public void readById(Integer id) throws ClassNotFoundException, SQLException {
-		// TODO Auto-generated method stub
-		System.out.println("in AdminBook.readById");
-		admin.readAuthorById(id);
-		
-	}
-	
-	
+		admin.readAuthorById(id).getName();
 
+	}
 
 }
