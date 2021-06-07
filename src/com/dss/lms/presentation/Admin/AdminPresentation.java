@@ -203,6 +203,10 @@ public class AdminPresentation extends Presentation {
 			System.out.println("delete a genre");
 			adminGenre.readAll();
 			System.out.println("Select a genre to delete");
+			Scanner gtd = new Scanner(System.in);
+			Integer genreid = gtd.nextInt();
+
+			adminGenre.delete(genreid);
 			break;
 //			    
 		default:
@@ -298,7 +302,7 @@ public class AdminPresentation extends Presentation {
 			Integer bookToDelete = btd.nextInt();
 
 			adminBook.delete(bookToDelete);
-			// bookOptions();
+			
 			break;
 
 		default:

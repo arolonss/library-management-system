@@ -28,9 +28,6 @@ public class AdminService {
 		try {
 			conn = util.getConnection();
 			BookDAO bookDao = new BookDAO(conn);
-			//System.out.println(book.getPublisher());
-			// System.out.println("Add a book:");
-			
 			bookDao.addBook(book);
 
 			// after all:
@@ -262,9 +259,24 @@ public class AdminService {
 		}
 	}
 
-	public void updateGenre(Genre genre) {
-		// TODO Auto-generated method stub
-
+	public void updateGenre(Genre genre) throws ClassNotFoundException, SQLException {
+		Connection conn = null;
+		try {
+			conn = util.getConnection();
+			GenreDAO gDao = new GenreDAO(conn);
+			gDao.updateGenre(genre);
+			// after all:
+			conn.commit();
+			System.out.println("Genre updated successfully!");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			conn.rollback();
+			System.out.println("There was a problem. ");
+		} finally {
+			if (conn != null) {
+				conn.close();
+			}
+		}
 	}
 
 	public void readAllGenres() throws ClassNotFoundException, SQLException {
@@ -288,8 +300,52 @@ public class AdminService {
 		}
 	}
 
-	public void deleteGenre(Genre genre) {
-		// TODO Auto-generated method stub
+	public Genre readGenreById(Integer id) throws ClassNotFoundException, SQLException {
+		Connection conn = null;
+		// List<Book> books = null;
+		try {
+
+			conn = util.getConnection();
+			GenreDAO gDao = new GenreDAO(conn);
+			List<Genre> genres = gDao.readGenreById(id);
+			if (genres.size() == 0) {
+				return null;
+			}
+			return genres.get(0);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			conn.rollback();
+			System.out.println("There was a problem!");
+			e.printStackTrace();
+		} finally {
+			if (conn != null) {
+				conn.close();
+			}
+		}
+		return null;
+	}
+	
+	public void deleteGenre(Integer id) throws SQLException {
+		Connection conn = null;
+		try {
+			conn = util.getConnection();
+			GenreDAO gDao = new GenreDAO(conn);
+			gDao.deleteGenre(id);
+			conn.commit();
+			System.out.println("Genre deleted");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			System.out.println("There was a problem!");
+			conn.rollback();
+
+		} catch (SQLException e) {
+			System.out.println("There was a problem!");
+			e.printStackTrace();
+		} finally {
+			if (conn != null) {
+				conn.close();
+			}
+		}
 
 	}
 
@@ -557,6 +613,10 @@ public class AdminService {
 		return null;
 		
 	}
+
+	
+
+
 
 
 

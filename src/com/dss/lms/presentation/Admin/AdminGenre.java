@@ -3,6 +3,7 @@ package com.dss.lms.presentation.Admin;
 import java.sql.SQLException;
 import java.util.Scanner;
 
+import com.dss.lms.model.Author;
 import com.dss.lms.model.Genre;
 import com.dss.lms.service.AdminService;
 
@@ -31,8 +32,24 @@ public class AdminGenre implements AdminCrud<Genre> {
 	}
 
 	@Override
-	public void update(Object obj) throws SQLException, ClassNotFoundException {
-		// TODO Auto-generated method stub
+	public void update(Integer id) throws SQLException, ClassNotFoundException {
+		Scanner sc = new Scanner(System.in);
+		Genre g = new Genre();
+        
+		System.out.println("Update" + " " + admin.readGenreById(id).getName());
+		String gName;
+		sc.useDelimiter("\\t");
+
+		while (true) {
+			System.out.println("Edit here: ");
+			gName = sc.nextLine();
+			break;
+		}
+
+		g.setId(id);
+		g.setName(gName);
+
+		admin.updateGenre(g);
 		
 	}
 
@@ -42,14 +59,13 @@ public class AdminGenre implements AdminCrud<Genre> {
 	}
 
 	@Override
-	public void delete(Object obj) throws SQLException, ClassNotFoundException {
-		// TODO Auto-generated method stub
-		
+	public void delete(Integer id) throws SQLException, ClassNotFoundException {
+		admin.deleteGenre(id);
 	}
 
 	@Override
 	public void readById(Integer id) throws ClassNotFoundException, SQLException {
-		// TODO Auto-generated method stub
+		admin.readGenreById(id).getName();
 		
 	}
 
