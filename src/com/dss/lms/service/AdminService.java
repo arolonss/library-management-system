@@ -24,16 +24,17 @@ public class AdminService {
 
 	public void addBook(Book book) throws SQLException {
 		Connection conn = null;
-
+        // verified working
 		try {
-			System.out.println(book);
-			// System.out.println("Add a book:");
 			conn = util.getConnection();
 			BookDAO bookDao = new BookDAO(conn);
+			//System.out.println(book.getPublisher());
+			// System.out.println("Add a book:");
+			
 			bookDao.addBook(book);
 
 			// after all:
-			System.out.println(book);
+			
 			conn.commit();
 			System.out.println("Book added successfully!");
 		} catch (Exception e) {
@@ -48,12 +49,14 @@ public class AdminService {
 	}
 
 	public void updateBook(Book book) throws SQLException, ClassNotFoundException {
-		// TODO Auto-generated method stub
+		// verified working
 		Connection conn = null;
 		try {
 			conn = util.getConnection();
 			BookDAO bookDao = new BookDAO(conn);
 			System.out.println(book.getTitle());
+			System.out.println(book.getPubId());
+			System.out.println(book.getId());
 			bookDao.updateBook(book);
 			// after all:
 			conn.commit();
@@ -91,14 +94,14 @@ public class AdminService {
 
 	}
 
-	public Book readBookById(Integer id) throws SQLException, ClassNotFoundException {
+	public Book readBookById(Book book) throws SQLException, ClassNotFoundException {
 		Connection conn = null;
 		// List<Book> books = null;
 		try {
 
 			conn = util.getConnection();
 			BookDAO bookDao = new BookDAO(conn);
-			List<Book> books = bookDao.readBookById(id);
+			List<Book> books = bookDao.readBookById(book);
 			if (books.size() == 0) {
 				return null;
 			}
@@ -117,14 +120,13 @@ public class AdminService {
 	}
 
 	public void deleteBook(Book book) throws SQLException {
-		// TODO Auto-generated method stub
 		Connection conn = null;
 		try {
 			conn = util.getConnection();
 			BookDAO bookDao = new BookDAO(conn);
 			bookDao.deleteBook(book);
 			System.out.println("Book deleted");
-
+            conn.commit();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -425,31 +427,51 @@ public class AdminService {
 	}
 
 	public void deleteBorrower(Borrower borrower) {
-		// TODO Auto-generated method stub
+//		Connection conn = null;
+//		try {
+//			conn = util.getConnection();
+//			BookDAO bookDao = new BookDAO(conn);
+//			bookDao.deleteBook(book);
+//			System.out.println("Book deleted");
+//            conn.commit();
+//		} catch (ClassNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//			System.out.println("There was a problem. Book not updated!");
+//
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			System.out.println("There was a problem. Book not updated!");
+//			e.printStackTrace();
+//		} finally {
+//			if (conn != null) {
+//				conn.close();
+//			}
+//		}
 
 	}
 
-	public Borrower readBorrowerById(Integer id) throws ClassNotFoundException, SQLException {
-		Connection conn = null;
-		try {
-            conn = util.getConnection();
-			BorrowerDAO bDao = new BorrowerDAO(conn);
-			List<Borrower> borrowers = bDao.readBorrowersById(id);
-			if (borrowers.size() == 0) {
-				return null;
-			}
-			return borrowers.get(0);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			System.out.println("There was a problem in adminService!");
-			e.printStackTrace();
-		} finally {
-			if (conn != null) {
-				conn.close();
-			}
-		}
-		return null;
-	}
+//	public Borrower readBorrowerById(Integer id) throws ClassNotFoundException, SQLException {
+//		Connection conn = null;
+//		try {
+//            conn = util.getConnection();
+//			BorrowerDAO bDao = new BorrowerDAO(conn);
+////			List<Borrower> borrowers = bDao.readBorrowersById(id);
+//			if (borrowers.size() == 0) {
+//				return null;
+//			}
+//			return borrowers.get(0);
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			System.out.println("There was a problem in adminService!");
+//			e.printStackTrace();
+//		} finally {
+//			if (conn != null) {
+//				conn.close();
+//			}
+//		}
+//		return null;
+//	}
 
 	public Author readAuthorById(Integer id) throws ClassNotFoundException, SQLException {
 		// TODO Auto-generated method stub
@@ -497,5 +519,7 @@ public class AdminService {
 		return null;
 		
 	}
+
+
 
 }

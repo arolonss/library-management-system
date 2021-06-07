@@ -293,6 +293,10 @@ public class AdminPresentation extends Presentation {
 			System.out.println("delete a book");
 			adminBook.readAll();
 			System.out.println("Select a book to delete");
+			Scanner btd = new Scanner(System.in);
+			Integer bookToDelete = btd.nextInt();
+			
+			adminBook.delete(bookToDelete);
 			break;
 
 		default:

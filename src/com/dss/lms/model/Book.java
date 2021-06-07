@@ -6,7 +6,7 @@ public class Book {
     
 	private Integer id;
     private String title;
-    private Integer pubId;
+    private Integer pubId; //Integer
     private List<BookLoan> bookloans;
     
 //	public Book(Integer id, String title, Integer pubId) {
@@ -14,6 +14,22 @@ public class Book {
 //		this.title = title;
 //		this.pubId = pubId;
 //	}
+
+
+	/**
+	 * @return the pubId
+	 */
+	public Integer getPubId() {
+		return pubId;
+	}
+
+	/**
+	 * @param pubId the pubId to set
+	 */
+	public void setPubId(Integer pubId) {
+		this.pubId = pubId;
+	}
+
 
 	/**
 	 * @return the id
@@ -45,19 +61,7 @@ public class Book {
 		this.title = title;
 	}
 
-	/**
-	 * @return the pubId
-	 */
-	public Integer getPubId() {
-		return pubId;
-	}
-
-	/**
-	 * @param pubId the pubId to set
-	 */
-	public void setPubId(Integer pubId) {
-		this.pubId = pubId;
-	}
+	
 
 	/**
 	 * @return the bookloans
@@ -65,8 +69,6 @@ public class Book {
 	public List<BookLoan> getBookloans() {
 		return bookloans;
 	}
-
-
 
 	/**
 	 * @param bookloans the bookloans to set
@@ -103,6 +105,9 @@ public class Book {
 			return false;
 		return true;
 	}
+
+	
+	
 	
 	
 	

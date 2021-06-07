@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
 
+import com.dss.lms.dao.BorrowerDAO;
 import com.dss.lms.menu.AdminMenu;
 import com.dss.lms.menu.BaseMenu;
 import com.dss.lms.model.Borrower;
@@ -46,7 +47,7 @@ public class Main {
 	    		
 	    		System.out.println("Welcome Librarian!");
 	    		presentation = new LibrarianPresentation();
-	    		System.out.println("Enter branch you manage or go back to main menu");
+	    		presentation.menu();
 	    		break;
 	    	case 2:
 	    		
@@ -55,12 +56,7 @@ public class Main {
 	    		presentation.menu();
 	    		break;
 	    	case 3:
-	    		System.out.println("Welcome Borrower!");
 	    		getBorrowerCardNo();
-	    		
-	    		
-	    		
-	    		
 	    		break;
 	    	default:
 	    	
@@ -69,7 +65,6 @@ public class Main {
 	    	
 	    }
 	    
-		//System.out.println("Welcome to the Library Management System!");
 	}
 
 	private static void getBorrowerCardNo() throws ClassNotFoundException, SQLException {
@@ -77,13 +72,14 @@ public class Main {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Enter your LMS card number: ");
 		Integer cardNo = sc.nextInt();
-		
-		if(cardNo != 1) {
+		if(bs.verifyCardNo(cardNo)) {
+			Presentation presentation = new BorrowerPresentation();
+			presentation.menu();
+		} else {
 			System.out.println("invalid card number. Try again later.");
 			main(null);
-		} else {
-		Presentation presentation = new BorrowerPresentation();
-		presentation.menu();
+		
 		}
+		sc.close();
 	}
 }

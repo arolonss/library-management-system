@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 import com.dss.lms.model.Book;
+import com.dss.lms.model.Publisher;
 import com.dss.lms.service.AdminService;
 
 public class AdminBook implements AdminCrud<Book> {
@@ -37,12 +38,12 @@ public class AdminBook implements AdminCrud<Book> {
 		System.out.println("Add publisher by number here: ");
 		admin.readAllPublishers();
 		Scanner id = new Scanner(System.in);
-		Integer pubId;
-
-		pubId = id.nextInt();
-
-		b.setTitle(booktitle);
+		Integer pubId = id.nextInt();
+	    
+        b.setTitle(booktitle);
 		b.setPubId(pubId);
+
+		
 
 		admin.addBook(b);
 		sc.close();
@@ -55,6 +56,7 @@ public class AdminBook implements AdminCrud<Book> {
 		// TODO Auto-generated method stub
 		Scanner sc = new Scanner(System.in);
 		Book b = new Book();
+		Integer bid = (Integer) obj; ///////////////
 		// Book b = admin.readBookById(book);
 		System.out.println("Update book:");
 		String booktitle;
@@ -69,9 +71,9 @@ public class AdminBook implements AdminCrud<Book> {
 		System.out.println("Edit publisher by number here: ");
 		admin.readAllPublishers();
 		Scanner id = new Scanner(System.in);
-		Integer pubId;
-		pubId = id.nextInt();
-
+		Integer pubId = id.nextInt();
+		
+		b.setId(bid);
 		b.setTitle(booktitle);
 		b.setPubId(pubId);
 
@@ -80,11 +82,12 @@ public class AdminBook implements AdminCrud<Book> {
 		id.close();
 	}
 
-	public void readById(Integer id) throws ClassNotFoundException, SQLException {
-
+	@Override
+	public void readById(Object obj) throws ClassNotFoundException, SQLException {
 		System.out.println("in AdminBook.readById");
-		admin.readBookById(id);
-
+		
+		admin.readBookById(obj);
+		
 	}
 
 	@Override
@@ -94,7 +97,13 @@ public class AdminBook implements AdminCrud<Book> {
 
 	@Override
 	public void delete(Object obj) throws SQLException {
-		// TODO Auto-generated method stub
+		Integer bid = (Integer) obj;
+		Book book = new Book();
+		book.setId(bid);
+		System.out.println(book);
+		admin.deleteBook(book);
 
 	}
+
+
 }

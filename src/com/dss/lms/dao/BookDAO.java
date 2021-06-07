@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import com.dss.lms.model.Book;
+import com.dss.lms.model.Publisher;
 
 /**
  * @author amanda
@@ -22,7 +23,6 @@ public class BookDAO extends BaseDAO<Book> {
 	
 	public BookDAO(Connection conn) {
 		super(conn);
-		// TODO Auto-generated constructor stub
 	}
 
 	public void addBook(Book book) throws ClassNotFoundException, SQLException {
@@ -44,7 +44,13 @@ public class BookDAO extends BaseDAO<Book> {
 
 	}
 	
+	
+    public List<Book> readBooksAtLibBranch(Integer id) throws ClassNotFoundException, SQLException {
+        return read("select * from ((tbl_book_copies as bc inner join tbl_book as bk on bc.bookId = bk.bookId) inner join tbl_library_branch as lb on bc.branchId = lb.branchId) where lb.branchId = ?", new Object[] {id} );
+    }
+    
 	public void deleteBook(Book book) throws SQLException, ClassNotFoundException {
+		
 		save("DELETE FROM tbl_book where bookId = ?", new Object[] { book.getId() });
 	}
 
@@ -55,10 +61,14 @@ public class BookDAO extends BaseDAO<Book> {
 			
 			b.setId(rs.getInt("bookId"));
 			b.setTitle(rs.getString("title"));
-			b.setPubId(rs.getInt("pubId"));
+			
+//			Publisher p = new Publisher();
+//			p.setId(rs.getInt("pubId"));
+			
+			b.setPubId(rs.getInt("pubId"));			
 			books.add(b);
 	    }
-		books.forEach(b -> System.out.println(b.getTitle()));
+		books.forEach(b -> System.out.println(b.getId() + " " + b.getTitle()));
 	    return books;
 	}
 
