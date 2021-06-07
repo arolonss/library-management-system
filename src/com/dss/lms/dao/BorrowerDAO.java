@@ -13,7 +13,6 @@ public class BorrowerDAO extends BaseDAO<Borrower> {
 
 	public BorrowerDAO(Connection conn) {
 		super(conn);
-		// TODO Auto-generated constructor stub
 	}
 
 	
@@ -22,7 +21,7 @@ public class BorrowerDAO extends BaseDAO<Borrower> {
 	}
 
 	public void updateBorrower(Borrower borrower) throws SQLException, ClassNotFoundException {
-		save("UPDATE tbl_borrower SET name = ? where cardNo = ?", new Object[] { borrower.getName(), borrower.getCardNo() });
+		save("UPDATE tbl_borrower SET name = ?, address = ?, phone = ? where cardNo = ?", new Object[] { borrower.getName(), borrower.getAddress(), borrower.getPhone(), borrower.getCardNo() });
 
 	}
 
@@ -34,12 +33,12 @@ public class BorrowerDAO extends BaseDAO<Borrower> {
 	
 	public List<Borrower> readBorrowerById(Integer cardNo) throws ClassNotFoundException, SQLException {
 
-		return read("select * from tbl_borrower where cardNo = ", new Object[] { cardNo });
+		return read("select * from tbl_borrower where cardNo = ?", new Object[] { cardNo });
 
 	}
 	
-	public void deleteBorrower(Borrower borrower) throws SQLException, ClassNotFoundException {
-		save("DELETE FROM tbl_borrower where cardNo = ?", new Object[] { borrower.getCardNo() });
+	public void deleteBorrower(Integer id) throws SQLException, ClassNotFoundException {
+		save("DELETE FROM tbl_borrower where cardNo = ?", new Object[] { id });
 	}
 
 	@Override
@@ -55,12 +54,10 @@ public class BorrowerDAO extends BaseDAO<Borrower> {
 			b.setPhone(rs.getString("phone"));
 			borrowers.add(b);
 	    }
-		borrowers.forEach(b -> System.out.println(b.getName()));
+		borrowers.forEach(b -> System.out.println(b.getCardNo() + " " + b.getName()));
 		return borrowers;
 	}
 
-
-//	
 	
 	
 

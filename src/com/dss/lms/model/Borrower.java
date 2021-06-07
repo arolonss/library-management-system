@@ -8,7 +8,7 @@ public class Borrower {
 	private String name;
 	private String address;
 	private String phone;
-	private List<BookLoan> bookloans;
+	
 	
 	
 //	public Borrower(Integer cardNo, String name, String address, String phone, List<BookLoan> bookloans) {
@@ -66,18 +66,7 @@ public class Borrower {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	/**
-	 * @return the bookloans
-	 */
-	public List<BookLoan> getBookloans() {
-		return bookloans;
-	}
-	/**
-	 * @param bookloans the bookloans to set
-	 */
-	public void setBookloans(List<BookLoan> bookloans) {
-		this.bookloans = bookloans;
-	}
+
 	
 	@Override
 	public int hashCode() {

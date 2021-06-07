@@ -1,14 +1,11 @@
 package com.dss.lms.presentation.Admin;
 
 import java.sql.SQLException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import com.dss.lms.app.Main;
-import com.dss.lms.model.Author;
-import com.dss.lms.model.Book;
-import com.dss.lms.model.Genre;
-import com.dss.lms.model.Library;
-import com.dss.lms.model.Publisher;
+
 import com.dss.lms.presentation.Presentation;
 import com.dss.lms.service.AdminService;
 
@@ -17,10 +14,10 @@ public class AdminPresentation extends Presentation {
 	AdminBook adminBook;
 
 	@Override
-	public void menu() throws SQLException, ClassNotFoundException {
-	
+	public void menu() throws ClassNotFoundException, SQLException {
+
 		Scanner sc = new Scanner(System.in);
-		
+
 		System.out.println("Welcome Admin!");
 		System.out.println("What are you working on today?");
 		System.out.println("1) Books");
@@ -31,38 +28,45 @@ public class AdminPresentation extends Presentation {
 		System.out.println("6) Borrowers");
 		System.out.println("7) Over-ride due date for a book loan");
 		System.out.println("8) Quit to previous");
-		int opt = sc.nextInt();
-		System.out.println(opt);
 
-		switch (opt)
+		try {
+			int opt = sc.nextInt();
+			System.out.println(opt);
 
-		{
-		case 1:
-			bookOptions();
-			break;
-		case 2:
-			authorOptions();
-			break;
-		case 3:
-			genreOptions();
-			break;
-		case 4:
-			publisherOptions();
-			break;
-		case 5:
-			libraryOptions();
-			break;
-		case 6:
-			borrowerOptions();
-			break;
-		case 7:
-			overRideDueDate();
-			break;
-		case 8:
-			Main.main(null);
-			break;
-		default:
-			System.out.println("invalid input");
+			switch (opt)
+
+			{
+			case 1:
+				bookOptions();
+				break;
+			case 2:
+				authorOptions();
+				break;
+			case 3:
+				genreOptions();
+				break;
+			case 4:
+				publisherOptions();
+				break;
+			case 5:
+				libraryOptions();
+				break;
+			case 6:
+				borrowerOptions();
+				break;
+			case 7:
+				overRideDueDate();
+				break;
+			case 8:
+				Main.main(null);
+				break;
+			default:
+				System.out.println("Invalid selection. Try again.");
+				menu();
+			}
+		} catch (InputMismatchException e) {
+			System.out.println("You must select an integer!");
+			menu();
 		}
 
 	}
@@ -75,33 +79,42 @@ public class AdminPresentation extends Presentation {
 		System.out.println("3) Edit a borrower");
 		System.out.println("4) Delete a borrower");
 		System.out.println("5) Quit to previous");
-		Integer opt = sc.nextInt();
-		switch (opt)
+		try {
+			Integer opt = sc.nextInt();
+			switch (opt)
 
-		{
-		case 1:
-			adminBorrower.add();
-			break;
-		case 2:
-			adminBorrower.readAll();
-			break;
-		case 3:
-			adminBorrower.readAll();
-			System.out.println("choose borrower to Update");
-			Scanner bid = new Scanner(System.in);
-			Integer id = bid.nextInt();
-			adminBorrower.update(id);
-			break;
-		case 4:
-			System.out.println("delete a borrower");
-			adminBorrower.readAll();
-			System.out.println("Select a borrower to delete");
-			break;
-		case 5:
-			menu();
-			break;
-		default:
-			System.out.println("invalid input");
+			{
+			case 1:
+				adminBorrower.add();
+				break;
+			case 2:
+				adminBorrower.readAll();
+				break;
+			case 3:
+				adminBorrower.readAll();
+				System.out.println("choose borrower to Update");
+				Scanner bid = new Scanner(System.in);
+				Integer id = bid.nextInt();
+				adminBorrower.update(id);
+				break;
+			case 4:
+				System.out.println("delete a borrower");
+				adminBorrower.readAll();
+				System.out.println("Select a borrower to delete");
+				Scanner input = new Scanner(System.in);
+				Integer btd = input.nextInt();
+
+				adminBorrower.delete(btd);
+				break;
+			case 5:
+				menu();
+				break;
+			default:
+				System.out.println("invalid input");
+				borrowerOptions();
+			}
+		} catch (InputMismatchException e) {
+			System.out.println("You must select an integer!");
 			borrowerOptions();
 		}
 
@@ -115,41 +128,45 @@ public class AdminPresentation extends Presentation {
 		System.out.println("3) Edit library");
 		System.out.println("4) Delete a library");
 		System.out.println("5) Quit to previous");
-		Integer opt = sc.nextInt();
-		switch (opt)
+		try {
+			Integer opt = sc.nextInt();
+			switch (opt)
 
-		{
-		case 1:
-			adminLib.add();
-			libraryOptions();
-			break;
-		case 2:
-			adminLib.readAll();
-			break;
-		case 3:
-			adminLib.readAll();
-			System.out.println("choose library to Update");
-			Scanner id = new Scanner(System.in);
-			Integer libId = id.nextInt();
-			adminLib.update(libId);
-			break;
-		case 4:
-			System.out.println("delete a library");
-			adminLib.readAll();
-			System.out.println("Select a library to delete");
-			Scanner input = new Scanner(System.in);
-			Integer ltd = input.nextInt();
+			{
+			case 1:
+				adminLib.add();
+				libraryOptions();
+				break;
+			case 2:
+				adminLib.readAll();
+				break;
+			case 3:
+				adminLib.readAll();
+				System.out.println("choose library to Update");
+				Scanner id = new Scanner(System.in);
+				Integer libId = id.nextInt();
+				adminLib.update(libId);
+				break;
+			case 4:
+				System.out.println("delete a library");
+				adminLib.readAll();
+				System.out.println("Select a library to delete");
+				Scanner input = new Scanner(System.in);
+				Integer ltd = input.nextInt();
 
-			adminLib.delete(ltd);
-			break;
-		case 5:
-			menu();
-			break;
-		default:
-			System.out.println("invalid input");
+				adminLib.delete(ltd);
+				break;
+			case 5:
+				menu();
+				break;
+			default:
+				System.out.println("invalid input");
+				libraryOptions();
+			}
+		} catch (InputMismatchException e) {
+			System.out.println("You must select an integer!");
 			libraryOptions();
 		}
-
 	}
 
 	private void publisherOptions() throws ClassNotFoundException, SQLException {
@@ -160,38 +177,43 @@ public class AdminPresentation extends Presentation {
 		System.out.println("3) Edit a publisher");
 		System.out.println("4) Delete a publisher");
 		System.out.println("5) Quit to previous");
-		Integer opt = sc.nextInt();
-		switch (opt)
+		try {
+			Integer opt = sc.nextInt();
+			switch (opt)
 
-		{
-		case 1:
-			adminPub.add();
-			break;
-		case 2:
-			adminPub.readAll();
-			break;
-		case 3:
-			adminPub.readAll();
-			System.out.println("choose publisher to Update");
-			Scanner id = new Scanner(System.in);
-			Integer pid = id.nextInt();
-			System.out.println(pid);
-			adminPub.update(pid);
-			break;
-		case 4:
-			System.out.println("delete a publisher");
-			adminPub.readAll();
-			System.out.println("Select a publisher to delete");
-			Scanner input = new Scanner(System.in);
-			Integer ptd = input.nextInt();
+			{
+			case 1:
+				adminPub.add();
+				break;
+			case 2:
+				adminPub.readAll();
+				break;
+			case 3:
+				adminPub.readAll();
+				System.out.println("choose publisher to Update");
+				Scanner id = new Scanner(System.in);
+				Integer pid = id.nextInt();
+				System.out.println(pid);
+				adminPub.update(pid);
+				break;
+			case 4:
+				System.out.println("delete a publisher");
+				adminPub.readAll();
+				System.out.println("Select a publisher to delete");
+				Scanner input = new Scanner(System.in);
+				Integer ptd = input.nextInt();
 
-			adminPub.delete(ptd);
-			break;
-		case 5:
-			menu();
-			break;
-		default:
-			System.out.println("invalid input");
+				adminPub.delete(ptd);
+				break;
+			case 5:
+				menu();
+				break;
+			default:
+				System.out.println("invalid input");
+				publisherOptions();
+			}
+		} catch (InputMismatchException e) {
+			System.out.println("You must select an integer!");
 			publisherOptions();
 		}
 
@@ -205,37 +227,42 @@ public class AdminPresentation extends Presentation {
 		System.out.println("3) Edit a genre");
 		System.out.println("4) Delete a genre");
 		System.out.println("5) Quit to previous");
-		Integer opt = sc.nextInt();
-		switch (opt)
+		try {
+			Integer opt = sc.nextInt();
+			switch (opt)
 
-		{
-		case 1:
-			adminGenre.add();
-			break;
-		case 2:
-			adminGenre.readAll();
-			break;
-		case 3:
-			adminGenre.readAll();
-			System.out.println("choose genre to Update");
-			Scanner id = new Scanner(System.in);
-			Integer gid = id.nextInt();
-			adminGenre.update(gid);
-			break;
-		case 4:
-			System.out.println("delete a genre");
-			adminGenre.readAll();
-			System.out.println("Select a genre to delete");
-			Scanner gtd = new Scanner(System.in);
-			Integer genreid = gtd.nextInt();
+			{
+			case 1:
+				adminGenre.add();
+				break;
+			case 2:
+				adminGenre.readAll();
+				break;
+			case 3:
+				adminGenre.readAll();
+				System.out.println("choose genre to Update");
+				Scanner id = new Scanner(System.in);
+				Integer gid = id.nextInt();
+				adminGenre.update(gid);
+				break;
+			case 4:
+				System.out.println("delete a genre");
+				adminGenre.readAll();
+				System.out.println("Select a genre to delete");
+				Scanner gtd = new Scanner(System.in);
+				Integer genreid = gtd.nextInt();
 
-			adminGenre.delete(genreid);
-			break;
-		case 5:
-			menu();
-			break;
-		default:
-			System.out.println("invalid input");
+				adminGenre.delete(genreid);
+				break;
+			case 5:
+				menu();
+				break;
+			default:
+				System.out.println("invalid input");
+				genreOptions();
+			}
+		} catch (InputMismatchException e) {
+			System.out.println("You must select an integer!");
 			genreOptions();
 		}
 
@@ -249,38 +276,43 @@ public class AdminPresentation extends Presentation {
 		System.out.println("3) Edit an author");
 		System.out.println("4) Delete an author");
 		System.out.println("5) Quit to previous");
-		Integer opt = sc.nextInt();
-		switch (opt)
+		try {
+			Integer opt = sc.nextInt();
+			switch (opt)
 
-		{
-		case 1:
-			adminAuthor.add();
-			break;
-		case 2:
-			adminAuthor.readAll();
-			break;
-		case 3:
-			adminAuthor.readAll();
-			System.out.println("choose author to Update");
-			Scanner id = new Scanner(System.in);
-			Integer aid = id.nextInt();
-			adminAuthor.update(aid);
-			break;
-		case 4:
-			System.out.println("delete an author");
-			adminAuthor.readAll();
-			System.out.println("Select an author to delete");
+			{
+			case 1:
+				adminAuthor.add();
+				break;
+			case 2:
+				adminAuthor.readAll();
+				break;
+			case 3:
+				adminAuthor.readAll();
+				System.out.println("choose author to Update");
+				Scanner id = new Scanner(System.in);
+				Integer aid = id.nextInt();
+				adminAuthor.update(aid);
+				break;
+			case 4:
+				System.out.println("delete an author");
+				adminAuthor.readAll();
+				System.out.println("Select an author to delete");
 
-			Scanner atd = new Scanner(System.in);
-			Integer aToDelete = atd.nextInt();
+				Scanner atd = new Scanner(System.in);
+				Integer aToDelete = atd.nextInt();
 
-			adminAuthor.delete(aToDelete);
-			break;
-		case 5:
-			menu();
-			break;
-		default:
-			System.out.println("invalid input");
+				adminAuthor.delete(aToDelete);
+				break;
+			case 5:
+				menu();
+				break;
+			default:
+				System.out.println("invalid input");
+				authorOptions();
+			}
+		} catch (InputMismatchException e) {
+			System.out.println("You must select an integer!");
 			authorOptions();
 		}
 	}
@@ -294,56 +326,61 @@ public class AdminPresentation extends Presentation {
 		System.out.println("3) Edit a book");
 		System.out.println("4) Delete a book");
 		System.out.println("5) Quit to previous");
+		try {
 
-		int opt = sc.nextInt();
-		System.out.println(opt);
+			int opt = sc.nextInt();
+			System.out.println(opt);
 
-		switch (opt)
+			switch (opt)
 
-		{
-		case 1:
-			adminBook.add();
-			break;
-		case 2:
-			System.out.println(admin);
-			System.out.println("View books");
-			adminBook.readAll();
-			// System.out.println("press q to go back ");
-			bookOptions();
-			break;
-////			    System.out.println("show list of authors");
-		case 3:
-			adminBook.readAll();
-			System.out.println("choose book to Update");
+			{
+			case 1:
+				adminBook.add();
+				break;
+			case 2:
+				System.out.println(admin);
+				System.out.println("View books");
+				adminBook.readAll();
+				bookOptions();
+				break;
 
-			Scanner id = new Scanner(System.in);
+			case 3:
+				adminBook.readAll();
+				System.out.println("choose book to Update");
 
-			Integer bookid = id.nextInt();
+				Scanner id = new Scanner(System.in);
 
-			adminBook.update(bookid);
+				Integer bookid = id.nextInt();
 
-			break;
+				adminBook.update(bookid);
 
-		case 4:
-			adminBook.readAll();
-			System.out.println("Select a book to delete");
-			Scanner btd = new Scanner(System.in);
-			Integer bookToDelete = btd.nextInt();
+				break;
 
-			adminBook.delete(bookToDelete);
-			
-			break;
-		case 5:
-			menu();
-			break;
-		default:
-			System.out.println("invalid input");
+			case 4:
+				adminBook.readAll();
+				System.out.println("Select a book to delete");
+				Scanner btd = new Scanner(System.in);
+				Integer bookToDelete = btd.nextInt();
+
+				adminBook.delete(bookToDelete);
+
+				break;
+			case 5:
+				menu();
+				break;
+			default:
+				System.out.println("invalid input");
+				bookOptions();
+			}
+		} catch (InputMismatchException e) {
+			System.out.println("You must select an integer!");
 			bookOptions();
 		}
+		sc.close();
 	}
 
 	public void overRideDueDate() {
 
 	}
-
+    
 }

@@ -1,6 +1,7 @@
 package com.dss.lms.presentation.Admin;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 
@@ -33,12 +34,12 @@ public class AdminBorrower implements AdminCrud<Borrower> {
 		b.setAddress(address);
 		b.setPhone(phone);
 		admin.addBorrower(b);
+		
 		sc.close();
-		this.readAll();
 	}
 
 	@Override
-	public void update(Object obj) throws SQLException, ClassNotFoundException {
+	public void update(Integer id) throws SQLException, ClassNotFoundException {
 		Scanner sc = new Scanner(System.in);
 		Borrower b = new Borrower();
 		System.out.println("Edit borrower:");
@@ -52,6 +53,7 @@ public class AdminBorrower implements AdminCrud<Borrower> {
 			phone = sc.nextLine();
 			break;
 		}
+		b.setCardNo(id);
 		b.setName(name);
 		b.setAddress(address);
 		b.setPhone(phone);
@@ -62,12 +64,14 @@ public class AdminBorrower implements AdminCrud<Borrower> {
 
 	@Override
 	public void readAll() throws ClassNotFoundException, SQLException {
+		
 		admin.readAllBorrowers();
+		
 	}
 
 	@Override
-	public void delete(Object obj) throws SQLException, ClassNotFoundException {
-		// TODO Auto-generated method stub
+	public void delete(Integer id) throws SQLException, ClassNotFoundException {
+		admin.deleteBorrower(id);
 		
 	}
 

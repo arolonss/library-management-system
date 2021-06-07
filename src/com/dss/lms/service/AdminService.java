@@ -31,12 +31,10 @@ public class AdminService {
 			BookDAO bookDao = new BookDAO(conn);
 			bookDao.addBook(book);
 
-			// after all:
-			
 			conn.commit();
 			System.out.println("Book added successfully!");
 		} catch (Exception e) {
-			e.printStackTrace();
+			
 			conn.rollback();
 			System.out.println("There was a problem. Book not added to database!");
 		} finally {
@@ -57,7 +55,7 @@ public class AdminService {
 			conn.commit();
 			System.out.println("Book updated successfully!");
 		} catch (SQLException e) {
-			e.printStackTrace();
+			
 			conn.rollback();
 			System.out.println("There was a problem. Book not updated!");
 		} finally {
@@ -77,9 +75,9 @@ public class AdminService {
 			conn = util.getConnection();
 			BookDAO bookDao = new BookDAO(conn);
 			bookDao.readAllBooks();
-			// return books;
+			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			
 			conn.rollback();
 			System.out.println("There was a problem. Line 85 in Admin service");
 			e.printStackTrace();
@@ -196,9 +194,9 @@ public class AdminService {
 			conn = util.getConnection();
 			AuthorDAO aDao = new AuthorDAO(conn);
 			aDao.readAllAuthors();
-			// return books;
+			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			
 			conn.rollback();
 			System.out.println("There was a problem. Book not updated!");
 			e.printStackTrace();
@@ -270,7 +268,7 @@ public class AdminService {
 			conn.commit();
 			System.out.println("Genre updated successfully!");
 		} catch (SQLException e) {
-			e.printStackTrace();
+			
 			conn.rollback();
 			System.out.println("There was a problem. ");
 		} finally {
@@ -288,9 +286,9 @@ public class AdminService {
 			conn = util.getConnection();
 			GenreDAO genreDao = new GenreDAO(conn);
 			genreDao.readAllGenres();
-			// return books;
+			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			
 			conn.rollback();
 			System.out.println("There was a problem. Contact Admin!");
 			e.printStackTrace();
@@ -471,9 +469,7 @@ public class AdminService {
 		try {
 			conn = util.getConnection();
 			LibraryDAO libDao = new LibraryDAO(conn);
-			System.out.println(library.getName());
-			System.out.println(library.getAddress());
-			System.out.println(library.getId());
+
 			libDao.updateLibrary(library);
 		
 			conn.commit();
@@ -541,19 +537,17 @@ public class AdminService {
 		Connection conn = null;
 
 		try {
-			System.out.println(borrower);
-			// System.out.println("Add a book:");
+		
+		
 			conn = util.getConnection();
 			BorrowerDAO borrowerDao = new BorrowerDAO(conn);
 			borrowerDao.addBorrower(borrower);
 
-			// after all:
-			System.out.println(borrower);
 			conn.commit();
 			System.out.println("Borrower added successfully!");
 		    
 		} catch (Exception e) {
-			e.printStackTrace();
+			
 			conn.rollback();
 			System.out.println("There was a problem. Borrower not added to database!");
 		} finally {
@@ -564,8 +558,26 @@ public class AdminService {
 
 	}
 
-	public void updateBorrower(Borrower borrower) {
-		// TODO Auto-generated method stub
+	public void updateBorrower(Borrower borrower) throws SQLException {
+		Connection conn = null;
+		try {
+			conn = util.getConnection();
+			BorrowerDAO bDao = new BorrowerDAO(conn);
+			bDao.updateBorrower(borrower);
+		
+			conn.commit();
+			System.out.println("updated successfully!");
+		} catch (SQLException e) {
+			conn.rollback();
+			System.out.println("There was a problem completing your request!");
+		} catch (ClassNotFoundException e) {
+			System.out.println("There was a problem completing your request!");
+			
+		} finally {
+			if (conn != null) {
+				conn.close();
+			}
+		}
 
 	}
 
@@ -583,7 +595,6 @@ public class AdminService {
 			// TODO Auto-generated catch block
 			conn.rollback();
 			System.out.println("There was a problem. borrower not updated!");
-			e.printStackTrace();
 		} finally {
 			if (conn != null) {
 				conn.close();
@@ -612,30 +623,27 @@ public class AdminService {
 
 	}
 
-//	public Borrower readBorrowerById(Integer id) throws ClassNotFoundException, SQLException {
-//		Connection conn = null;
-//		try {
-//            conn = util.getConnection();
-//			BorrowerDAO bDao = new BorrowerDAO(conn);
-////			List<Borrower> borrowers = bDao.readBorrowersById(id);
-//			if (borrowers.size() == 0) {
-//				return null;
-//			}
-//			return borrowers.get(0);
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			System.out.println("There was a problem in adminService!");
-//			e.printStackTrace();
-//		} finally {
-//			if (conn != null) {
-//				conn.close();
-//			}
-//		}
-//		return null;
-//	}
+	public Borrower readBorrowerById(Integer id) throws ClassNotFoundException, SQLException {
+		Connection conn = null;
+		try {
+            conn = util.getConnection();
+			BorrowerDAO bDao = new BorrowerDAO(conn);
+			List<Borrower> borrowers = bDao.readAllBorrowers();
+			if (borrowers.size() == 0) {
+				return null;
+			}
+			return borrowers.get(0);
+		} catch (SQLException e) {
+			System.out.println("There was a problem in adminService!");
+		} finally {
+			if (conn != null) {
+				conn.close();
+			}
+		}
+		return null;
+	}
 
 	public Author readAuthorById(Integer id) throws ClassNotFoundException, SQLException {
-		// TODO Auto-generated method stub
 		Connection conn = null;
 		try {
             conn = util.getConnection();
