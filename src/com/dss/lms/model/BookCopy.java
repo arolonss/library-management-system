@@ -6,8 +6,8 @@ package com.dss.lms.model;
 
 public class BookCopy {
     
-	private Book bookId;
-	private Library libraryId;
+	private Integer bookId;
+	private Integer libraryId;
 	private Integer noOfCopies;
 	/**
 	 * @param bookId
@@ -22,25 +22,25 @@ public class BookCopy {
 	/**
 	 * @return the bookId
 	 */
-	public Book getBookId() {
+	public Integer getBookId() {
 		return bookId;
 	}
 	/**
 	 * @param bookId the bookId to set
 	 */
-	public void setBookId(Book bookId) {
+	public void setBookId(Integer bookId) {
 		this.bookId = bookId;
 	}
 	/**
 	 * @return the libraryId
 	 */
-	public Library getLibraryId() {
+	public Integer getLibraryId() {
 		return libraryId;
 	}
 	/**
 	 * @param libraryId the libraryId to set
 	 */
-	public void setLibraryId(Library libraryId) {
+	public void setLibraryId(Integer libraryId) {
 		this.libraryId = libraryId;
 	}
 	/**
@@ -55,8 +55,7 @@ public class BookCopy {
 	public void setNoOfCopies(Integer noOfCopies) {
 		this.noOfCopies = noOfCopies;
 	}
-	
-    
+
 	
 	
 	

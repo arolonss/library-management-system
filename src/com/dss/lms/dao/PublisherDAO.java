@@ -33,11 +33,10 @@ public class PublisherDAO extends BaseDAO<Publisher> {
 	public List<Publisher> readPublisherById(Integer id) throws ClassNotFoundException, SQLException {
 
 		return read("select * from tbl_publisher where publisherId = ?", new Object[] { id });
-
 	}
 	
-	public void deletePublisher(Publisher publisher) throws SQLException, ClassNotFoundException {
-		save("DELETE FROM tbl_publisher where publisherId = ?", new Object[] { publisher.getId() });
+	public void deletePublisher(Integer id) throws SQLException, ClassNotFoundException {
+		save("DELETE FROM tbl_publisher where publisherId = ?", new Object[] { id });
 	}
 
 	

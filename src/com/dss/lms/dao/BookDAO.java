@@ -44,14 +44,13 @@ public class BookDAO extends BaseDAO<Book> {
 
 	}
 	
-	
     public List<Book> readBooksAtLibBranch(Integer id) throws ClassNotFoundException, SQLException {
         return read("select * from ((tbl_book_copies as bc inner join tbl_book as bk on bc.bookId = bk.bookId) inner join tbl_library_branch as lb on bc.branchId = lb.branchId) where lb.branchId = ?", new Object[] {id} );
     }
     
-	public void deleteBook(Book book) throws SQLException, ClassNotFoundException {
+	public void deleteBook(Integer id) throws SQLException, ClassNotFoundException {
 		
-		save("DELETE FROM tbl_book where bookId = ?", new Object[] { book.getId() });
+		save("DELETE FROM tbl_book where bookId = ?", new Object[] { id });
 	}
 
 	public List<Book> extractData(ResultSet rs) throws ClassNotFoundException, SQLException {
@@ -61,9 +60,6 @@ public class BookDAO extends BaseDAO<Book> {
 			
 			b.setId(rs.getInt("bookId"));
 			b.setTitle(rs.getString("title"));
-			
-//			Publisher p = new Publisher();
-//			p.setId(rs.getInt("pubId"));
 			
 			b.setPubId(rs.getInt("pubId"));			
 			books.add(b);

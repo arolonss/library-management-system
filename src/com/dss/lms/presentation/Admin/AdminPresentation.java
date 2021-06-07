@@ -166,6 +166,10 @@ public class AdminPresentation extends Presentation {
 			System.out.println("delete a publisher");
 			adminPub.readAll();
 			System.out.println("Select a publisher to delete");
+			Scanner input = new Scanner(System.in);
+			Integer ptd = input.nextInt();
+
+			adminPub.delete(ptd);
 			break;
 //			    System.out.println("show list of publishers");
 		default:

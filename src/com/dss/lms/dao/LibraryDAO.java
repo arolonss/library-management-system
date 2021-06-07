@@ -29,8 +29,7 @@ public class LibraryDAO extends BaseDAO<Library> {
         
 
 	}
-	
-	
+
 	public List<Library> readLibraryById(Integer id) throws ClassNotFoundException, SQLException {
 
 		return read("select * from tbl_library_branch where branchId = ", new Object[] {id});

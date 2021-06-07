@@ -375,8 +375,24 @@ public class AdminService {
 		}
 	}
 
-	public void updatePublisher(Publisher publisher) {
-		// TODO Auto-generated method stub
+	public void updatePublisher(Publisher publisher) throws ClassNotFoundException, SQLException {
+		Connection conn = null;
+		try {
+			conn = util.getConnection();
+			PublisherDAO pDao = new PublisherDAO(conn);
+			pDao.updatePublisher(publisher);
+			// after all:
+			conn.commit();
+			System.out.println("Publisher updated successfully!");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			conn.rollback();
+			System.out.println("There was a problem. ");
+		} finally {
+			if (conn != null) {
+				conn.close();
+			}
+		}
 
 	}
 
@@ -398,12 +414,34 @@ public class AdminService {
 			if (conn != null) {
 				conn.close();
 			}
-		} // TODO Auto-generated method stub
+		} 
 
 	}
 
-	public void deletePublisher(Publisher publisher) {
-		// TODO Auto-generated method stub
+	public void deletePublisher(Integer id) throws SQLException {
+		Connection conn = null;
+		try {
+			conn = util.getConnection();
+			PublisherDAO pDao = new PublisherDAO(conn);
+			pDao.deletePublisher(id);
+			
+            conn.commit();
+            System.out.println("Publisher deleted");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("There was a problem.");
+			conn.rollback();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.println("There was a problem.");
+			e.printStackTrace();
+		} finally {
+			if (conn != null) {
+				conn.close();
+			}
+		}
 
 	}
 
