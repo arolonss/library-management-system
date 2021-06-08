@@ -4,10 +4,8 @@ import java.sql.SQLException;
 
 import java.util.Scanner;
 
-import com.dss.lms.model.Author;
 import com.dss.lms.model.Book;
-import com.dss.lms.model.BookAuthors;
-import com.dss.lms.model.Publisher;
+
 import com.dss.lms.service.AdminService;
 
 public class AdminBook implements AdminCrud<Book> {
@@ -25,38 +23,40 @@ public class AdminBook implements AdminCrud<Book> {
 
 	@Override
 	public void add() throws SQLException, ClassNotFoundException {
-		// TODO Auto-generated method stub
 		Scanner sc = new Scanner(System.in);
 		Book b = new Book();
-		//BookAuthors ba = new BookAuthors();
 		
 		System.out.println("Add a book:");
 		String booktitle;
-	//    Integer author;
 	    Integer pubId;
 		sc.useDelimiter("\\t");
 
 		while (true) {
 			booktitle = sc.nextLine();
-//			System.out.println("Who wrote this book?");
-//			admin.readAllAuthors();
-//			author = sc.nextInt();
-			System.out.println("Add publisher by number here: ");
-			admin.readAllPublishers();
-			pubId = sc.nextInt();
+
 			break;
 		}
 	
-		 
+		b.setTitle(booktitle);
+		Scanner id = new Scanner(System.in);
+		System.out.println("Add publisher by number here: ");
+		admin.readAllPublishers();
+		
+		pubId = id.nextInt();
+//		System.out.println("Who wrote this book?");
+//		admin.readAllAuthors();
+//		author = sc.nextInt();
+
 	    //ba.setAuthorId(author);
-        b.setTitle(booktitle);
-		b.setPubId(pubId);
         
+		b.setPubId(pubId);
+		System.out.println(b.getTitle());
+		System.out.println(b.getPubId());
 		
 
 		admin.addBook(b);
 		sc.close();
-		
+		id.close();
 
 	}
 

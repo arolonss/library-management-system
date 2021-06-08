@@ -8,9 +8,9 @@ import java.sql.Date;
 
 public class BookLoan {
  
-	private Book bookId;
-	private Library libraryId;
-	private Borrower cardNo;
+	private Integer bookId;
+	private Integer libraryId;
+	private Integer cardNo;
 	private Date dateOut;
 	private Date dueDate;
 	
@@ -23,40 +23,41 @@ public class BookLoan {
 //		this.dateOut = dateOut;
 //		this.dueDate = dueDate;
 //	}
+
 	/**
 	 * @return the bookId
 	 */
-	public Book getBookId() {
+	public Integer getBookId() {
 		return bookId;
 	}
 	/**
 	 * @param bookId the bookId to set
 	 */
-	public void setBookId(Book bookId) {
+	public void setBookId(Integer bookId) {
 		this.bookId = bookId;
 	}
 	/**
 	 * @return the libraryId
 	 */
-	public Library getLibraryId() {
+	public Integer getLibraryId() {
 		return libraryId;
 	}
 	/**
 	 * @param libraryId the libraryId to set
 	 */
-	public void setLibraryId(Library libraryId) {
+	public void setLibraryId(Integer libraryId) {
 		this.libraryId = libraryId;
 	}
 	/**
 	 * @return the cardNo
 	 */
-	public Borrower getCardNo() {
+	public Integer getCardNo() {
 		return cardNo;
 	}
 	/**
 	 * @param cardNo the cardNo to set
 	 */
-	public void setCardNo(Borrower cardNo) {
+	public void setCardNo(Integer cardNo) {
 		this.cardNo = cardNo;
 	}
 	/**

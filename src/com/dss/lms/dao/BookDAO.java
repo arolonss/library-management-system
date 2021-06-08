@@ -26,7 +26,7 @@ public class BookDAO extends BaseDAO<Book> {
 	}
 
 	public void addBook(Book book) throws ClassNotFoundException, SQLException {
-		save("INSERT INTO tbl_book VALUES(?, ?, ?)", new Object[] {book.getId(), book.getTitle(), book.getPubId() });
+		save("INSERT INTO tbl_book VALUES( ?, ?)", new Object[] { book.getTitle(), book.getPubId() }); // took book.getId() out to test
 	}
 
 	public void updateBook(Book book) throws SQLException, ClassNotFoundException {
@@ -53,6 +53,12 @@ public class BookDAO extends BaseDAO<Book> {
 		save("DELETE FROM tbl_book where bookId = ?", new Object[] { id });
 	}
 
+	//// working on this
+	public void addToBookAuthors(Integer bookId) throws ClassNotFoundException, SQLException {
+		save("INSERT INTO tbl_book_authors bookId VALUES(?)", new Object[] { bookId });
+	}
+	
+	
 	public List<Book> extractData(ResultSet rs) throws ClassNotFoundException, SQLException {
 		List<Book> books = new ArrayList<>();
 		while (rs.next()) {
@@ -68,5 +74,6 @@ public class BookDAO extends BaseDAO<Book> {
 	    return books;
 	}
 
+	
 	
 }

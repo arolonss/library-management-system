@@ -36,6 +36,10 @@ public class AuthorDAO extends BaseDAO<Author> {
 
 	}
 	
+	public void addToBookAuthors(Integer authorId) throws ClassNotFoundException, SQLException {
+		save("INSERT INTO tbl_book_authors authorId VALUES(?)", new Object[] { authorId });
+	}
+	
 	public void deleteAuthor(Integer id) throws SQLException, ClassNotFoundException {
 		save("DELETE FROM tbl_author where authorId = ?", new Object[] { id });
 	}

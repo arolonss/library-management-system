@@ -23,12 +23,18 @@ public class AdminService {
 
 	Util util = new Util();
 
-	public void addBook(Book book) throws SQLException {
+	public void addBook(Book book) throws SQLException, ClassNotFoundException {
 		Connection conn = null;
-        // verified working
+      
 		try {
 			conn = util.getConnection();
 			BookDAO bookDao = new BookDAO(conn);
+			//AuthorDAO aDao = new AuthorDAO(conn);
+			//aDao.addToBookAuthors(2);
+			//bookDao.addToBookAuthors(book.getId());
+//			System.out.println(book.getId());
+//			System.out.println(book.getTitle());
+//			System.out.println(book.getPubId());
 			bookDao.addBook(book);
 
 			conn.commit();
@@ -115,24 +121,26 @@ public class AdminService {
 
 	}
 
+	
+	
 	public void deleteBook(Integer id) throws SQLException {
 		Connection conn = null;
 		try {
 			conn = util.getConnection();
 			BookDAO bookDao = new BookDAO(conn);
 			bookDao.deleteBook(id);
+			conn.commit();
 			System.out.println("Book deleted");
-            conn.commit();
+            
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.out.println("There was a problem. Book not updated!");
-			conn.rollback();
+			
+			System.out.println("There was a problem.");
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			System.out.println("There was a problem. Book not updated!");
-			e.printStackTrace();
+			System.out.println("There was a problem.");
+			
 		} finally {
 			if (conn != null) {
 				conn.close();
