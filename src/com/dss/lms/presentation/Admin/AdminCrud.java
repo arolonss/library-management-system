@@ -8,7 +8,7 @@ import com.dss.lms.model.Book;
 
 
 public interface AdminCrud<T> {
-
+    
 	public void add() throws SQLException, ClassNotFoundException;
 	public void update(Integer id) throws SQLException, ClassNotFoundException;
 	public void readAll() throws ClassNotFoundException, SQLException;

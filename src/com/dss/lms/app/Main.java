@@ -19,9 +19,10 @@ import com.dss.lms.service.BorrowerService;
  *
  */
 public class Main {
+	static Scanner sc = new Scanner(System.in);
 
 	public static void main(String[] args) throws ClassNotFoundException {
-		Scanner sc = new Scanner(System.in);
+
 		Presentation presentation = null;
 
 		System.out.println("Welcome to the Library Management System!");
@@ -84,6 +85,5 @@ public class Main {
 			e.printStackTrace();
 		}
 	}
-	
-	
+
 }
